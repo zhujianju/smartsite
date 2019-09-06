@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/"
+logging:
+  level:
+      cn.itcast: debug
+      #      org.springframework: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://139.159.178.7:7458/SmartSiteGateWay?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: Jifei@123
+mybatis:
+  type-aliases-package: com.jf.jf_smartsite.entity
+pagehelper:
+  helperDialect: mysql
+
+
+
+
+
+
+
+
+
