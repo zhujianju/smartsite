@@ -1,8 +1,8 @@
 package com.jf.jf_smartsite.mapper;
 
 import com.jf.jf_smartsite.entity.IOTData.ConfIotproduct;
-import com.jf.jf_smartsite.server.IOTData.ComService;
-import com.jf.jf_smartsite.server.IOTData.ConfIotproductService;
+import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,10 @@ public class ConfIotproductTest {
         List<ConfIotproduct> all = confIotproductService.findAll();
         System.out.println(all);
     }
+    @Test
+    public void findByPage(){
+        PageResult smartSiteGateWas = confIotproductService.findPage(1, 1, "abcdd");
+        System.out.println(smartSiteGateWas);
+    }
+
 }

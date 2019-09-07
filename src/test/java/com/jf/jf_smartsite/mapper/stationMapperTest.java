@@ -2,8 +2,7 @@ package com.jf.jf_smartsite.mapper;
 
 import com.jf.jf_smartsite.entity.IOTData.ConfStation;
 import com.jf.jf_smartsite.entity.comEntity.PageResult;
-import com.jf.jf_smartsite.mapper.IOTData.ConfStationMapper;
-import com.jf.jf_smartsite.server.IOTData.ConfStationService;
+import com.jf.jf_smartsite.IOTData.server.ConfStationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +60,10 @@ public class stationMapperTest {
     @Test
     public void delete(){
         confStationService.deleteById(3);
+    }
+    @Test
+    public void findOne(){
+        ConfStation one = confStationService.findOne(1);
+        System.out.println(one);
     }
 }
