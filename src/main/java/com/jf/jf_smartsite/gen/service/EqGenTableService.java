@@ -1,7 +1,7 @@
-package com.jf.jf_smartsite.equipment.gen.service;
+package com.jf.jf_smartsite.gen.service;
 
 
-import com.jf.jf_smartsite.equipment.gen.domain.Prototype;
+import com.jf.jf_smartsite.gen.domain.Prototype;
 
 /**
  * 业务 服务层

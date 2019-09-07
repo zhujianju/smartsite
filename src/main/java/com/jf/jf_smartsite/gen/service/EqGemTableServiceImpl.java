@@ -1,9 +1,9 @@
-package com.jf.jf_smartsite.equipment.gen.service;
+package com.jf.jf_smartsite.gen.service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.jf.jf_smartsite.equipment.gen.domain.Prototype;
-import com.jf.jf_smartsite.equipment.gen.mapper.EqGenTableMapper;
-import com.jf.jf_smartsite.equipment.gen.util.JsonFormatTool;
+import com.jf.jf_smartsite.gen.domain.Prototype;
+import com.jf.jf_smartsite.gen.mapper.EqGenTableMapper;
+import com.jf.jf_smartsite.gen.util.JsonFormatTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

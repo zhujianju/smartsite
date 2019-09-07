@@ -1,4 +1,4 @@
-package com.jf.jf_smartsite.equipment.gen.util;
+package com.jf.jf_smartsite.gen.util;
 
 
 public class JsonFormatTool {

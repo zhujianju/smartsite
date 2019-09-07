@@ -1,8 +1,8 @@
-package com.jf.jf_smartsite.equipment.gen.controller;
+package com.jf.jf_smartsite.gen.controller;
 
 
 
-import com.jf.jf_smartsite.equipment.gen.service.EqGenTableService;
+import com.jf.jf_smartsite.gen.service.EqGenTableService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

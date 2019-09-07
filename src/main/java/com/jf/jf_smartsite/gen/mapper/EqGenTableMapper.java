@@ -1,7 +1,7 @@
-package com.jf.jf_smartsite.equipment.gen.mapper;
+package com.jf.jf_smartsite.gen.mapper;
 
 
-import com.jf.jf_smartsite.equipment.gen.domain.Prototype;
+import com.jf.jf_smartsite.gen.domain.Prototype;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

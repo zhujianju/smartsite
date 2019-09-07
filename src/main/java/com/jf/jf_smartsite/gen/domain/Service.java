@@ -1,4 +1,4 @@
-package com.jf.jf_smartsite.equipment.gen.domain;
+package com.jf.jf_smartsite.gen.domain;
 
 public class Service {
     private String propertyName;

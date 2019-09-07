@@ -1,4 +1,4 @@
-package com.jf.jf_smartsite.equipment.gen.domain;
+package com.jf.jf_smartsite.gen.domain;
 
 import java.util.List;
 

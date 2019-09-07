@@ -11,7 +11,7 @@ spring:
     username: root
     password: Jifei@123
 mybatis:
-  type-aliases-package: com.jf.jf_smartsite.*.*.mapper   #  定义所有操作类的别名所在包
+  #type-aliases-package: com.jf.jf_smartsite.*.*.mapper   #  定义所有操作类的别名所在包
   mapper-locations: classpath:mybatis/*/*.xml      #  所有的mapper映射文件
 pagehelper:
   helperDialect: mysql
