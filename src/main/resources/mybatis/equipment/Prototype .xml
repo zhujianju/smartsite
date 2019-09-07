@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.jf_smartsite.equipment.gen.mapper.EqGenTableMapper">
+
+    <resultMap type="com.jf.jf_smartsite.equipment.gen.domain.Prototype" id="Pro">
+        <result property="manufacturerId" column="FirmId"/>
+        <result property="manufacturerName" column="FirmName"/>
+        <result property="model" column="Type"/>
+        <result property="protocolType" column="Protocol"/>
+        <result property="deviceType" column="TypeNo"/>
+        <collection property="serviceTypeCapabilitiesList"  javaType="list" ofType="com.jf.jf_smartsite.equipment.gen.domain.ServiceTypeCapabilities">
+            <result property="serviceId" column="ChannelId"/>
+            <result property="serviceType" column="IotChlCode"/>
+            <result property="option" column="OPTION" />
+        </collection>
+	</resultMap>
+
+	<select id="selectGenTable" resultMap="Pro">
+        SELECT
+        id,
+        FirmId,
+        FirmName,
+        Protocol,
+        Type,
+        TypeNo,
+        FROM
+        conf_iotproduct
+    </select>
+
+
+</mapper> 

@@ -1,19 +1,23 @@
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: "/"
 
       #      org.springframework: debug
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://139.159.178.7:7458/SmartSiteGateWay?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: Jifei@123
 mybatis:
-  type-aliases-package: com.jf.jf_smartsite.entity
+  type-aliases-package: com.jf.jf_smartsite.*.*.mapper   #  定义所有操作类的别名所在包
+  mapper-locations: classpath:mybatis/*/*.xml      #  所有的mapper映射文件
 pagehelper:
   helperDialect: mysql
+
+
+
 
 
 

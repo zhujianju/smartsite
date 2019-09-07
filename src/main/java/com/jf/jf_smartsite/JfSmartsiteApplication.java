@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan("com.jf.jf_smartsite.mapper")
+@MapperScan("com.jf.jf_smartsite.*.mapper")
 public class JfSmartsiteApplication {
 
     public static void main(String[] args) {
