@@ -1,8 +1,8 @@
 package com.jf.jf_smartsite.IOTData.web;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfStation;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
-import com.jf.jf_smartsite.entity.comEntity.Result;
+import com.jf.jf_smartsite.IOTData.entity.ConfStation;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.Result;
 import com.jf.jf_smartsite.IOTData.server.ConfStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +25,9 @@ public class ConfStationWeb {
     }
 
     @RequestMapping("findBypage.m")
-    public PageResult findByPage(int page,int rows){
-            return confStationService.findPage(page,rows);
+    public PageResult findByPage(@RequestBody ConfStation confStation, int page,int rows){
+        PageResult page1 = confStationService.findPage(page, rows,confStation);
+        return page1;
     }
 
     /**
@@ -36,7 +37,8 @@ public class ConfStationWeb {
      */
     @RequestMapping("/{id}")
     public ConfStation findOne(@PathVariable("id") Integer id){
-       return confStationService.findOne(id);
+        ConfStation one = confStationService.findOne(id);
+        return one;
     }
 
     /**
@@ -44,7 +46,7 @@ public class ConfStationWeb {
      * @param confStation
      * @return
      */
-    @RequestMapping("save")
+    @RequestMapping("save.m")
     public Result add(@RequestBody ConfStation confStation){
         try {
             confStationService.insert(confStation);
@@ -60,7 +62,7 @@ public class ConfStationWeb {
      * @param confStation
      * @return
      */
-    @RequestMapping("/update")
+        @RequestMapping("update.m")
     public Result update(@RequestBody ConfStation confStation){
         try {
             confStationService.updateByid(confStation);
@@ -70,6 +72,19 @@ public class ConfStationWeb {
             return new Result(false, "修改失败");
         }
     }
-
+    @RequestMapping("delete.m")
+    public Result delete(Integer id){
+        try {
+            confStationService.deleteById(id);
+            return new Result(true, "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "删除失败");
+        }
+    }
+    @RequestMapping("findIotStation.m")
+    public List<ConfStation> findStationByIOTid(Integer id){
+        return confStationService.findStationByIOTid(id);
+    }
 
 }

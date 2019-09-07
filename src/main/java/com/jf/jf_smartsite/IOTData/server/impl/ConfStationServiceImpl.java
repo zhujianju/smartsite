@@ -2,8 +2,8 @@ package com.jf.jf_smartsite.IOTData.server.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.jf.jf_smartsite.entity.IOTData.ConfStation;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfStation;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.mapper.ConfStationMapper;
 import com.jf.jf_smartsite.IOTData.server.ConfStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +31,16 @@ public class ConfStationServiceImpl implements ConfStationService {
     }
 
     @Override
-    public PageResult findPage(int pageNum, int pageSize, String name) {
+    public PageResult findPage(int pageNum, int pageSize, ConfStation confStation) {
         PageHelper.startPage(pageNum,pageSize,true);
         Example example=new Example(ConfStation.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andLike("name","%"+name+"%");
+        //如果传入的对象不为null
+        if(confStation !=null){
+            if(confStation.getName() !=null && confStation.getName().length()>0){
+                criteria.andLike("name","%"+confStation.getName()+"%");
+            }
+        }
         Page<ConfStation> page  = (Page<ConfStation>) confStationMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
     }
@@ -67,5 +72,12 @@ public class ConfStationServiceImpl implements ConfStationService {
     @Override
     public int insert(ConfStation confStation) {
         return confStationMapper.insert(confStation);
+    }
+
+    @Override
+    public List<ConfStation> findStationByIOTid(Integer iotId) {
+        Example example = new Example(ConfStation.class);
+        example.createCriteria().andEqualTo("iottypeid",iotId);
+        return confStationMapper.selectByExample(example);
     }
 }

@@ -1,6 +1,6 @@
 package com.jf.jf_smartsite.IOTData.mapper;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfIotproduct;
+import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

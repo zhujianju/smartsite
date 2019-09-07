@@ -2,8 +2,8 @@ package com.jf.jf_smartsite.IOTData.server.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.jf.jf_smartsite.entity.IOTData.ConfDevice;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfDevice;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.mapper.ConfDeviceMapper;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +32,11 @@ public class ConfDeviceServiceImpl implements ConfDeviceService {
     }
 
     @Override
-    public PageResult findPage(int pageNum, int pageSize, String name) {
+    public PageResult findPage(int pageNum, int pageSize, ConfDevice confDevice) {
         PageHelper.startPage(pageNum,pageSize,true);
         Example example=new Example(ConfDevice.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andLike("name","%"+name+"%");
+        criteria.andLike("name","%"+confDevice.getName()+"%");
         Page<ConfDevice> page  = (Page<ConfDevice>) confDeviceMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
     }

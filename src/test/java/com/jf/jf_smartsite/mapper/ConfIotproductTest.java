@@ -1,7 +1,6 @@
 package com.jf.jf_smartsite.mapper;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfIotproduct;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
 import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +22,8 @@ public class ConfIotproductTest {
     }
     @Test
     public void findByPage(){
-        PageResult smartSiteGateWas = confIotproductService.findPage(1, 1, "abcdd");
-        System.out.println(smartSiteGateWas);
+      /*  PageResult smartSiteGateWas = confIotproductService.findPage(1, 1, "abcdd");
+        System.out.println(smartSiteGateWas);*/
     }
 
 }

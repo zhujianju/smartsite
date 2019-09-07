@@ -1,7 +1,6 @@
 package com.jf.jf_smartsite.IOTData.server;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfDevice;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 
 import java.util.List;
 
@@ -28,10 +27,10 @@ public interface ComService <T>{
      * 带条件的分页查询
      * @param pageNum
      * @param pageSize
-     * @param name 名字
+     * @param t 名字
      * @return
      */
-    public PageResult findPage(int pageNum, int pageSize, String name);
+    public PageResult findPage(int pageNum, int pageSize, T t);
 
     /**
      * 根据id查询单个站点

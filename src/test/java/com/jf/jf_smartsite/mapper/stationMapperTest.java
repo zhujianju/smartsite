@@ -1,7 +1,7 @@
 package com.jf.jf_smartsite.mapper;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfStation;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfStation;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.server.ConfStationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,9 +32,9 @@ public class stationMapperTest {
     }
     @Test
     public void findByPage2(){
-        PageResult page = confStationService.findPage(1, 1,"2");
+      /*  PageResult page = confStationService.findPage(1, 1,"2");
         System.out.println(page.getTotal());
-        System.out.println(page.getRows().get(0));
+        System.out.println(page.getRows().get(0));*/
     }
     @Test
     public void insert(){

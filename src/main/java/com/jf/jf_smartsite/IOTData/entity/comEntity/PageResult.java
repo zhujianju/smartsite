@@ -1,6 +1,4 @@
-package com.jf.jf_smartsite.entity.comEntity;
-
-import lombok.Data;
+package com.jf.jf_smartsite.IOTData.entity.comEntity;
 
 import java.io.Serializable;
 import java.util.List;
