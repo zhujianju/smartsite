@@ -1,7 +1,6 @@
 package com.jf.jf_smartsite.mapper;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfDevice;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfDevice;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +17,8 @@ public class ConfDeviceTest {
     private ConfDeviceService confDeviceService;
     @Test
     public void findByname(){
-        PageResult smartSiteGateWas = confDeviceService.findPage(1, 1, "A1");
-        System.out.println(smartSiteGateWas.getRows().get(0));
+       // PageResult smartSiteGateWas = confDeviceService.findPage(1, 1, "A1");
+      //  System.out.println(smartSiteGateWas.getRows().get(0));
     }
     @Test
     public void findAll(){

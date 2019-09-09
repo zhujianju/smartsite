@@ -1,4 +1,4 @@
-package com.jf.jf_smartsite.entity.comEntity;
+package com.jf.jf_smartsite.IOTData.entity.comEntity;
 
 import java.io.Serializable;
 

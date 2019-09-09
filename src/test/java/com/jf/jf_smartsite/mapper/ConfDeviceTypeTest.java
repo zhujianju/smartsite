@@ -2,7 +2,7 @@ package com.jf.jf_smartsite.mapper;
 
 
 
-import com.jf.jf_smartsite.entity.IOTData.ConfDevicetype;
+import com.jf.jf_smartsite.IOTData.entity.ConfDevicetype;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceTypeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

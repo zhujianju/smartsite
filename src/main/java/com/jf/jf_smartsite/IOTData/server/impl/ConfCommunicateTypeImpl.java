@@ -1,7 +1,7 @@
 package com.jf.jf_smartsite.IOTData.server.impl;
 
-import com.jf.jf_smartsite.entity.IOTData.ConfCommunicate;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfCommunicate;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.mapper.ConfCommunicateMapper;
 import com.jf.jf_smartsite.IOTData.server.ConfCommunicateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ConfCommunicateTypeImpl implements ConfCommunicateService {
     }
 
     @Override
-    public PageResult findPage(int pageNum, int pageSize, String name) {
+    public PageResult findPage(int pageNum, int pageSize, ConfCommunicate confCommunicate) {
         return null;
     }
 

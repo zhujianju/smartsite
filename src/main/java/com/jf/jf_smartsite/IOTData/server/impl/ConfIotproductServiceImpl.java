@@ -2,8 +2,8 @@ package com.jf.jf_smartsite.IOTData.server.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.jf.jf_smartsite.entity.IOTData.ConfIotproduct;
-import com.jf.jf_smartsite.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
+import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.mapper.ConfIotproductMapper;
 import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,24 +26,33 @@ public class ConfIotproductServiceImpl implements ConfIotproductService {
     @Override
     public PageResult findPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize,true);
-
         Page<ConfIotproduct> page = (Page<ConfIotproduct>) confIotproductMapper.selectAll();
         return new PageResult(page.getTotal(),page.getResult());
     }
 
     @Override
-    public PageResult findPage(int pageNum, int pageSize, String name) {
+    public PageResult findPage(int pageNum, int pageSize, ConfIotproduct confIotproduct) {
         PageHelper.startPage(pageNum,pageSize,true);
         Example example=new Example(ConfIotproduct.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andLike("productname","%"+name+"%");
+
+        //如果传入的对象不为null
+        if(confIotproduct !=null){
+            if(confIotproduct.getFirmname() !=null && confIotproduct.getFirmname().length()>0){
+                criteria.andLike("name","%"+confIotproduct.getFirmname()+"%");
+            }
+        }
+
         Page<ConfIotproduct> page  = (Page<ConfIotproduct>) confIotproductMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
     }
 
     @Override
     public ConfIotproduct findOne(Integer id) {
-        return  confIotproductMapper.selectByPrimaryKey(id);
+        Example example=new Example(ConfIotproduct.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id",id);
+        return  confIotproductMapper.selectOneByExample(example);
     }
 
     @Override

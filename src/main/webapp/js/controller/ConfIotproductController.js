@@ -1,5 +1,5 @@
 //控制层
-app.controller('stationController',function ($scope,$controller,stationService) {
+app.controller('iotproductController',function ($scope,$controller,iotproductService) {
     $controller('baseController',{$scope:$scope});//继承通用的控制层
 
     //分页
@@ -14,7 +14,7 @@ app.controller('stationController',function ($scope,$controller,stationService) 
     $scope.searchEntity={};//定义搜索对象
     //搜索并分页
     $scope.search=function(page,rows){
-        stationService.findPage(page,rows,$scope.searchEntity).success(
+        iotproductService.findPage(page,rows,$scope.searchEntity).success(
             function(response){
                 $scope.list=response.rows;
                 $scope.paginationConf.totalItems=response.total;//更新总记录数
@@ -24,10 +24,10 @@ app.controller('stationController',function ($scope,$controller,stationService) 
 
     //查询实体
     $scope.findOne=function(id){
-        stationService.findOne(id).success(
+        iotproductService.findOne(id).success(
             function(response){
-                $scope.stationEntity= response;
-                $scope.stationEntity.status=1;
+                $scope.IotEntity= response;
+                $scope.IotEntity.status=1;
             }
         );
     }
@@ -35,10 +35,10 @@ app.controller('stationController',function ($scope,$controller,stationService) 
     //保存
     $scope.save=function(){
         var serviceObject;//服务层对象
-        if($scope.stationEntity.status == 1){//如果有状态
-            serviceObject=stationService.update( $scope.stationEntity ); //修改
+        if($scope.IotEntity.status == 1){//如果有状态
+            serviceObject=iotproductService.update( $scope.IotEntity ); //修改
         }else{
-            serviceObject=stationService.add( $scope.stationEntity  );//增加
+            serviceObject=iotproductService.add( $scope.IotEntity  );//增加
         }
         serviceObject.success(
             function(response){
@@ -56,7 +56,7 @@ app.controller('stationController',function ($scope,$controller,stationService) 
     $scope.delete=function(id){
         if (confirm("是否确认删除")){
             //获取选中的复选框
-            stationService.dele( id ).success(
+            iotproductService.dele( id ).success(
                 function(response){
                     if(response.success){
                         $scope.reloadList();//刷新列表
@@ -65,12 +65,14 @@ app.controller('stationController',function ($scope,$controller,stationService) 
             );
         }
     }
-    //查询单个iot实体
-    $scope.findOneIot=function (id) {
-        stationService.findOneIot(id).success(
-            function(response){
-                $scope.IotEntity= response;
+
+    //根据iotId查询站点信息
+    $scope.findIotStation=function (id) {
+        iotproductService.findIotStation(id).success(
+            function (response) {
+                $scope.stationList=response;
             }
         );
     }
+
 });

@@ -1,4 +1,4 @@
-package com.jf.jf_smartsite.entity.IOTData;
+package com.jf.jf_smartsite.IOTData.entity;
 
 import lombok.Data;
 
