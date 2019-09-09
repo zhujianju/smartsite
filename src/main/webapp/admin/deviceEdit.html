@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>设备保存</title>
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="../css/pages-register.css" />
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="register py-container ">
+		<!--head-->
+		
+		<div class="registerArea">
+			<h3>设备保存</h3>
+			<div class="info">
+				<form class="sui-form form-horizontal">
+				
+					<div class="control-group">
+						<label class="control-label">选择站点：</label>
+						<div class="controls">
+							<input select2 select2-model="deivceEntity.stationid" config="stationList" class="form-control" type="选择站点">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">设备类型：</label>
+						<div class="controls">
+							<input select2 select2-model="deivceEntity.typeid" config="deviceTypes" class="form-control" type="设备类型">
+						</div>
+					</div>
+				
+					<div class="control-group">
+						<label class="control-label">设备编号：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="设备编号" ng-model="deivceEntity.deviceid">  
+						</div>
+					</div>
+				
+					<div class="control-group">
+						<label class="control-label">Iot服务Id：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="Iot服务Id" ng-model="deivceEntity.iotcode">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">通讯：</label>
+						<div class="controls">
+							<input select2 select2-model="deivceEntity.communicateid" config="communicates" class="form-control" type="通讯">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">设备子地址：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="设备子地址" ng-model="deivceEntity.subaddr"> 
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">服务器Ip：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="服务器Ip" ng-model="deivceEntity.ip">  
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">端口：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="端口" ng-model="deivceEntity.port">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">社区：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="社区" ng-model="deivceEntity.community"> 
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">密码：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="密码" ng-model="deivceEntity.pwd">  
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">设备数据校验标识：</label>
+						<div class="controls">
+							<input  class="form-control" placeholder="设备数据校验标识" ng-model="deivceEntity.checks">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">是否启用：</label>
+						<div class="controls">
+							<input select2 select2-model="deivceEntity.enable" config="enableList" class="form-control" type="是否启用">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">备注：</label>
+						<div class="controls">
+							<textarea  class="form-control" placeholder="备注" ng-model="IotEntity.remask"></textarea>
+						</div>
+					</div>
+
+
+					<a  href="#" target="_blank">保存设备</a>
+
+				</form>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!--foot-->
+		 
+	</div>
+
+
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+</body>
+
+</html>

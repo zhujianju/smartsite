@@ -22,8 +22,17 @@ app.service('stationService',function ($http) {
     this.dele=function(id){
         return $http.get('../confstation/delete.m?id='+id);
     }
-
+    //查询iot
     this.findOneIot=function (id) {
         return  $http.get('../iotproduct/'+id);
+    }
+    //根据设备id查询设备列表
+    this.findDevice=function (id) {
+        return  $http.get('../device/findDevicByStationId.m?id='+id);
+    }
+
+    //根据设备id查询设备列表
+    this.export=function (id) {
+        return  $http.get('../equipment/gen/GenFile?id='+id);
     }
 });

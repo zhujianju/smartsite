@@ -5,7 +5,7 @@
 	<!-- 页面meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>商家审核</title>
+	<title>站点信息</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -77,7 +77,7 @@
 					<th class="sorting">Iot设备Id </th>
 					<th class="sorting">设备识别码</th>
 					<th class="sorting">预置密钥</th>
-					<th class="sorting">Iot产品信息 </th>
+					<th class="sorting">其它信息 </th>
 					<th class="text-center">操作</th>
 				</tr>
 				</thead>
@@ -92,11 +92,14 @@
 					<td>{{entity.iotdevid}}</td>
 					<td>{{entity.iotnodeid}}</td>
 					<td>{{entity.iotverifycode}}</td>
-					<td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#sellerModal" ng-click="findOneIot(entity.iottypeid)" >IOT信息</button></td>
+					<td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#sellerModal" ng-click="findOneIot(entity.iottypeid)" >IOT信息</button>
+						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#deviceModal" ng-click="findDevice(entity.id)" >设备信息</button>
+
+					</td>
 
 					<td class="text-center">
 						<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.id)" >修改</button>
-
+						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" ng-click="export(entity.id)" >导出</button>
 						<button type="button" class="btn btn-danger btn-xs" ng-click="delete(entity.id)"  data-toggle="modal" data-target="#delete" >删除</button>
 						<!--确认删除对话框-->
 
@@ -112,6 +115,48 @@
 		<!-- 数据表格 /-->
 	</div>
 	<!-- /.box-body -->
+
+	<!--设备信息展示-->
+	<div class="modal fade" id="deviceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+				</div>
+				<div class="modal-body">
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#home" data-toggle="tab">设备信息</a></li>
+					</ul>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>设备名称</th>
+							<th>Iot服务Id</th>
+							<th>设备分类名称</th>
+							<th>通讯模式名称</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="entity in deviList">
+							<td>{{entity.confDevice.name}}</td>
+							<td>{{entity.confDevice.iotcode}}</td>
+							<td>{{entity.confDevicetype.name}}</td>
+							<td>{{entity.confCommunicate.name}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+
+					<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<!-- 编辑窗口 -->
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -239,6 +284,7 @@
 			</div>
 		</div>
 	</div>
+
 
 
 </body>

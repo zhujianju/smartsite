@@ -38,7 +38,7 @@ public class ConfDevice implements Serializable
 
     /** 通讯编号 */
 
-    private Long communicateid;
+    private Integer communicateid;
 
     /** 设备子地址 */
 

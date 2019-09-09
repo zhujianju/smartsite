@@ -1,22 +1,25 @@
 package com.jf.jf_smartsite.IOTData.server.impl;
 
+import com.jf.jf_smartsite.IOTData.entity.ConfDevicetype;
 import com.jf.jf_smartsite.IOTData.mapper.ConfDeviceMapper;
+import com.jf.jf_smartsite.IOTData.mapper.ConfDeviceTypeMapper;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
 import com.jf.jf_smartsite.IOTData.entity.ConfDevice;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
+import com.jf.jf_smartsite.IOTData.server.ConfDeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 @Service
-public class ConfDeviceTypeImpl implements ConfDeviceService {
+public class ConfDeviceTypeServiceImpl implements ConfDeviceTypeService {
     @Autowired
-    private ConfDeviceMapper confDeviceMapper;
+    private ConfDeviceTypeMapper confDeviceTypeMapper;
 
     @Override
-    public List<ConfDevice> findAll() {
-        List<ConfDevice> confDeviceTypes = confDeviceMapper.selectAll();
+    public List<ConfDevicetype> findAll() {
+        List<ConfDevicetype> confDeviceTypes = confDeviceTypeMapper.selectAll();
         return confDeviceTypes;
     }
 
@@ -26,16 +29,16 @@ public class ConfDeviceTypeImpl implements ConfDeviceService {
     }
 
     @Override
-    public PageResult findPage(int pageNum, int pageSize, ConfDevice confDevice) {
+    public PageResult findPage(int pageNum, int pageSize, ConfDevicetype confDevicetype) {
         return null;
     }
 
     @Override
-    public ConfDevice findOne(Integer id) {
-        Example example=new Example(ConfDevice.class);
+    public ConfDevicetype findOne(Integer id) {
+        Example example=new Example(ConfDevicetype.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id",id);
-        return  confDeviceMapper.selectOneByExample(example);
+        return  confDeviceTypeMapper.selectOneByExample(example);
     }
 
     @Override
@@ -44,12 +47,14 @@ public class ConfDeviceTypeImpl implements ConfDeviceService {
     }
 
     @Override
-    public int updateByid(ConfDevice confDevice) {
+    public int updateByid(ConfDevicetype confDevicetype) {
         return 0;
     }
 
     @Override
-    public int insert(ConfDevice confDevice) {
+    public int insert(ConfDevicetype confDevicetype) {
         return 0;
     }
+
+
 }
