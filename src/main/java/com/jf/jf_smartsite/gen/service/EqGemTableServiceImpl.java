@@ -3,11 +3,12 @@ package com.jf.jf_smartsite.gen.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jf.jf_smartsite.gen.domain.Devices;
+import com.jf.jf_smartsite.gen.domain.Properties;
 import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilitie;
 import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities;
 import com.jf.jf_smartsite.gen.mapper.EqGenTableMapper;
 import com.jf.jf_smartsite.gen.util.JsonFormatTool;
-import org.apache.commons.io.IOUtils;
+import com.jf.jf_smartsite.gen.util.ZipFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,13 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.io.FileOutputStream;
+import static com.jf.jf_smartsite.gen.util.ZipFileUtils.toZip;
 
 @Service
 public class EqGemTableServiceImpl implements EqGenTableService {
     private static final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
-    private static StringBuffer filePath = new StringBuffer("./local/SmartSiteGateWay/");
+    private static StringBuffer filePath = new StringBuffer("local/SmartSiteGateWay/");
     private String fileName = "devicetype-capability";
     /**
      * 查询设备原型信息
@@ -34,37 +35,13 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     private EqGenTableMapper eqGenTableMapper;
 
     @Override
-    public byte[] selectGenTable(int id) {
-        deleteFile(new File(filePath.toString()));
+    public void selectGenTable(int id) throws FileNotFoundException {
+        deleteFile(new File("local\\"));
         genDevice(id);
-        String sourceFilePath = "./local/";
-        String zipFilePath = "./local/";
-        String fileName = "SmartSiteGateWay";
-        boolean flag = fileToZip(sourceFilePath, zipFilePath, fileName);
-        if(flag){
-            System.out.println("文件打包成功!");
-        }else{
-            System.out.println("文件打包失败!");
-        }
-
-        return zip();
+        FileOutputStream fos1 = new FileOutputStream(new File(".\\local\\SmartSiteGateWay.zip"));
+        ZipFileUtils.toZip("local\\SmartSiteGateWay",fos1,true);
     }
 
-
-    public byte[] zip() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
-        try {
-            // 添加到zip
-            zip.putNextEntry(new ZipEntry("local/SmartSiteGateWay"));
-            IOUtils.write("SmartSiteGateWay", zip, "UTF-8");
-            zip.closeEntry();
-        } catch (Exception e) {
-
-        }
-        IOUtils.closeQuietly(zip);
-        return outputStream.toByteArray();
-    }
 
 
     /**
@@ -76,7 +53,6 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     public boolean genDevice(int id) {
         Devices devices = eqGenTableMapper.selectGenTable(id);
         List<ServiceTypeCapabilitie> list = eqGenTableMapper.selectGenTableByid(id);
-        System.out.println(list);
         devices.setServiceTypeCapabilitiesList(list);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("devices", devices);
@@ -100,7 +76,8 @@ public class EqGemTableServiceImpl implements EqGenTableService {
             Path.append("/profile/");
             Map<String, Object> map = new HashMap<String, Object>();
             ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType());
-            serviceTypeCapabilities.setPropertiesList(eqGenTableMapper.selectGenPro(serviceTypeCapabilities.getDeviceTypeId()));
+            List<Properties> list1=eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getDeviceTypeId()));
+            serviceTypeCapabilities.setPropertiesList(list1);
             serviceTypeCapabilities.setDeviceTypeId(null);
             map.put("services", serviceTypeCapabilities);
             String jsonString1 = JSONArray.toJSONString(map, SerializerFeature.WriteMapNullValue);
@@ -184,70 +161,4 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     }
 
 
-    /**
-     * 将存放在sourceFilePath目录下的源文件，打包成fileName名称的zip文件，并存放到zipFilePath路径下
-     *
-     * @param sourceFilePath :待压缩的文件路径
-     * @param zipFilePath    :压缩后存放路径
-     * @param fileName       :压缩后文件的名称
-     * @return
-     */
-    public boolean fileToZip(String sourceFilePath, String zipFilePath, String fileName) {
-        boolean flag = false;
-        File sourceFile = new File(sourceFilePath);
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-        FileOutputStream fos = null;
-        ZipOutputStream zos = null;
-
-        if (sourceFile.exists() == false) {
-            System.out.println("待压缩的文件目录：" + sourceFilePath + "不存在.");
-        } else {
-            try {
-                File zipFile = new File(zipFilePath + "/" + fileName + ".zip");
-                if (zipFile.exists()) {
-                    System.out.println(zipFilePath + "目录下存在名字为:" + fileName + ".zip" + "打包文件.");
-                } else {
-                    File[] sourceFiles = sourceFile.listFiles();
-                    if (null == sourceFiles || sourceFiles.length < 1) {
-                        System.out.println("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.");
-                    } else {
-                        fos = new FileOutputStream(zipFile);
-                        zos = new ZipOutputStream(new BufferedOutputStream(fos));
-                        byte[] bufs = new byte[1024 * 10];
-                        for (int i = 0; i < sourceFiles.length; i++) {
-                            //创建ZIP实体，并添加进压缩包
-                            ZipEntry zipEntry = new ZipEntry(sourceFiles[i].getName());
-                            zos.putNextEntry(zipEntry);
-                            //读取待压缩的文件并写进压缩包里
-                            fis = new FileInputStream(sourceFiles[i]);
-                            bis = new BufferedInputStream(fis, 1024 * 10);
-                            int read = 0;
-                            while ((read = bis.read(bufs, 0, 1024 * 10)) != -1) {
-                                zos.write(bufs, 0, read);
-                            }
-                        }
-                        flag = true;
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            } finally {
-                //关闭流
-                try {
-                    if (null != bis) bis.close();
-                    if (null != zos) zos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        return flag;
-
-    }
 }

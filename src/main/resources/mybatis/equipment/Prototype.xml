@@ -69,7 +69,7 @@
     </select>
 
 
-    <select id="selectGenPro" resultMap="Pro" parameterType="String">
+    <select id="selectGenPro" resultMap="service" parameterType="int">
         SELECT
         IotChlCode,
         DataType,

@@ -1,7 +1,7 @@
 package com.jf.jf_smartsite.gen.service;
 
 
-import com.jf.jf_smartsite.gen.domain.Devices;
+import java.io.FileNotFoundException;
 
 /**
  * 业务 服务层
@@ -15,7 +15,7 @@ public interface EqGenTableService {
      *
      * @return 设备原型信息
      */
-    public byte[] selectGenTable(int id) ;
+    public void selectGenTable(int id) throws FileNotFoundException;
 
 
 }

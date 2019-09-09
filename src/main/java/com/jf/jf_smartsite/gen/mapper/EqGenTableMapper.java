@@ -22,6 +22,6 @@ public interface EqGenTableMapper {
 
     ServiceTypeCapabilities selectGenByid(String serviceType);
 
-    List<Properties> selectGenPro(String deviceTypeId);
+    List<Properties> selectGenPro(int deviceTypeId);
 
 }
