@@ -6,6 +6,7 @@ import com.jf.jf_smartsite.gen.service.EqGenTableService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,9 +30,9 @@ public class EqGenController
      * 生成profile 产品原型
      */
     @RequestMapping("/GenFile")
-    public void batchGenCode(HttpServletResponse response, String tables) throws IOException
+    public void batchGenCode(HttpServletResponse response,@PathVariable("id") Integer id) throws IOException
     {
-        byte[] data =   eqGenTableService.selectGenTable(1);
+        byte[] data =   eqGenTableService.selectGenTable(id);
         genCode(response, new byte[1]);
     }
 
