@@ -68,6 +68,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     public boolean genDevice(int id) {
         Devices devices = eqGenTableMapper.selectGenTable(id);
         List<ServiceTypeCapabilitie> list = eqGenTableMapper.selectGenTableByid(id);
+        System.out.println(list);
         devices.setServiceTypeCapabilitiesList(list);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("devices", devices);
@@ -94,7 +95,6 @@ public class EqGemTableServiceImpl implements EqGenTableService {
             serviceTypeCapabilities.setPropertiesList(eqGenTableMapper.selectGenPro(serviceTypeCapabilities.getDeviceTypeId()));
             serviceTypeCapabilities.setDeviceTypeId(null);
             map.put("services", serviceTypeCapabilities);
-            System.out.println(map);
             String jsonString1 = JSONArray.toJSONString(map, SerializerFeature.WriteMapNullValue);
             createJsonFile(jsonString1, Path, "servicetype-capability");
         }
