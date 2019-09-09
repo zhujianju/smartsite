@@ -30,7 +30,7 @@ public class EqGenController
      * 生成profile 产品原型
      */
     @RequestMapping("/GenFile")
-    public void batchGenCode(HttpServletResponse response,@PathVariable("id") Integer id) throws IOException
+    public void batchGenCode(HttpServletResponse response, Integer id) throws IOException
     {
         byte[] data =   eqGenTableService.selectGenTable(id);
         genCode(response, new byte[1]);

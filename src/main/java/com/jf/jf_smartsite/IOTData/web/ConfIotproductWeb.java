@@ -1,9 +1,9 @@
 package com.jf.jf_smartsite.IOTData.web;
 
-import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
-import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.Result;
+import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
+import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +30,7 @@ public class ConfIotproductWeb {
     }
 
     @RequestMapping("findBypage.m")
-    public PageResult findByPage( int page,int rows){
+    public PageResult findByPage(int page, int rows){
         PageResult page1 = confIotproductService.findPage(page, rows);
         return page1;
     }

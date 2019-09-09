@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>设备信息</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<!--引入需要的js-->
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	<!-- 引入自定义模块js -->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>
+	<!-- 引入自定义service的js -->
+	<script type="text/javascript" src="../js/service/ConfDeviceService.js"></script>
+	<!-- 引入自定义controller的js -->
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/controller/ConfDeviceController.js"></script>
+
+	<!--引入select2-->
+	<link rel="stylesheet" href="../plugins/select2/select2.css" />
+	<link rel="stylesheet" href="../plugins/select2/select2-bootstrap.css" />
+	<script src="../plugins/select2/select2.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/angular-select2.js"> </script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="jismart" ng-controller="deviceController" ng-init="findSelect()" >
+  <!-- .box-body -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">设备信息</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+ 							<div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button"  class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="deivceEntity={}" ><i class="fa fa-file-o"></i> 新建</button>
+                         
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+										  <th class="sorting_asc">站点</th>
+									      <th class="sorting">设备类型</th>
+									      <th class="sorting">设备名称</th>
+									      <th class="sorting">Iot服务Id</th>
+									      <th class="sorting">通讯</th>
+									      <th class="sorting">设备子地址</th>
+									      <th class="sorting">服务器Ip</th>
+									      <th class="sorting">通讯端口</th>
+										  <th class="sorting">是否启用</th>
+										  <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody>
+			                          <tr ng-repeat="entity in list">
+				                          <td>{{entity.stationName}}</td>
+										  <td>{{entity.confDevicetype.name}}</td>
+									      <td>{{entity.confDevice.name}}</td>
+									      <td>{{entity.confDevice.iotcode}}</td>
+										  <td>{{entity.confCommunicate.name}}</td>
+										  <td>{{entity.confDevice.subaddr}}</td>
+										  <td>{{entity.confDevice.ip}}</td>
+										  <td>{{entity.confDevice.port}}</td>
+										  <td>
+											  <p class="text-success" ng-if="entity.confDevice.enable==1">启用</p>
+											  <p  class="bg-danger" ng-if="entity.confDevice.enable==0">禁用</p>
+										  </td>
+		                                  <td class="text-center">                                           
+		                                 	 <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.confDevice.deviceid)" >修改</button>
+		                                 	<button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#delete" >删除</button> 
+			                          </tr>
+									 
+			                      </tbody>
+			                  </table>
+			                  <!--数据列表/-->
+							<!--分页控件-->
+							<tm-pagination conf="paginationConf"></tm-pagination>
+                        </div>
+                        <!-- 数据表格 /-->
+                        
+                        
+                        
+                        
+                     </div>
+                    <!-- /.box-body -->
+                    
+	          
+					    
+                                
+<!-- 编辑窗口 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">设备信息保存</h3>
+		</div>
+		<div class="modal-body">							
+			
+			<table class="table table-bordered table-striped"  width="800px">
+		      	<tr>
+		      		<td>站点</td>
+		      		<td>
+						<select select2 ng-model="deivceEntity.stationid" class="form-control" placeholder="选择站点">
+							<option value="{{ item.id }}" ng-repeat="item in stationList">{{ item.text }}</option>
+						</select>
+					</td>
+		      		</tr>
+		      	<tr>
+		      		<td>设备类型</td>
+					<td>
+						<select select2 ng-model="deivceEntity.typeid" class="form-control" placeholder="设备类型">
+							<option value="{{ item.id }}" ng-repeat="item in deviceTypes">{{ item.text }}</option>
+						</select>
+					</td>
+		      	</tr>
+			    <tr>
+		      		<td>设备编号</td>
+		      		<td><input  class="form-control" placeholder="设备编号" ng-model="deivceEntity.deviceid">  </td>
+		      	</tr>		      
+		       	 <tr>
+		      		<td>设备名称</td>
+		      		<td><input  class="form-control" placeholder="设备名称" ng-model="deivceEntity.name">  </td>
+		      	</tr>		      
+		       	
+		       	 <tr>
+		      		<td>Iot服务Id</td>
+		      		<td><input  class="form-control" placeholder="产品Id" ng-model="deivceEntity.iotcode">  </td>
+		      	</tr>		      
+		       	
+		       	 <tr>
+		      		<td>通讯</td>
+					 <td>
+						 <select select2 ng-model="deivceEntity.communicateid" class="form-control" placeholder="通讯">
+							 <option value="{{ item.id }}" ng-repeat="item in communicates">{{ item.text }}</option>
+						 </select>
+					 </td>
+
+		      	</tr>		      
+		       	 <tr>
+		      		<td>设备子地址</td>
+		      		<td><input  class="form-control" placeholder="设备子地址" ng-model="deivceEntity.subaddr">  </td>
+		      	</tr>		      
+		       	 <tr>
+		      		<td>服务器Ip</td>
+		      		<td><input  class="form-control" placeholder="服务器Ip" ng-model="deivceEntity.ip">  </td>
+		      	</tr>
+				<tr>
+					<td>端口</td>
+					<td><input  class="form-control" placeholder="端口" ng-model="deivceEntity.port">  </td>
+				</tr>
+				<tr>
+					<td>社区</td>
+					<td><input  class="form-control" placeholder="社区" ng-model="deivceEntity.community">  </td>
+				</tr>
+				<tr>
+					<td>密码</td>
+					<td><input  class="form-control" placeholder="密码" ng-model="deivceEntity.pwd">  </td>
+				</tr>
+				<tr>
+					<td>设备数据校验标识</td>
+					<td><input  class="form-control" placeholder="设备数据校验标识" ng-model="deivceEntity.checks">  </td>
+				</tr>
+				<tr>
+					<td>是否启用</td>
+					<td>
+						<select select2 ng-model="deivceEntity.enable" class="form-control" placeholder="通讯">
+							<option value="{{ item.id }}" ng-repeat="item in enableList">{{ item.text }}</option>
+						</select>
+					</td>
+					</td>
+				</tr>
+				<tr>
+
+					<td>备注||{{IotEntity.remask}}</td>
+					<td><textarea  class="form-control" placeholder="备注" ng-model="IotEntity.remask"></textarea> </td>
+				</tr>
+
+			</table>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+
+	  </div>
+	</div>
+</div>
+					
+           <!-- 选项卡结束 -->          
+		</div>
+		
+	  </div>
+	</div>
+</div>
+
+</body>
+
+</html>
