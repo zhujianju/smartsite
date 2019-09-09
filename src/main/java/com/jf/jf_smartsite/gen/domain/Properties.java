@@ -1,6 +1,6 @@
 package com.jf.jf_smartsite.gen.domain;
 
-public class Service {
+public class Properties {
     private String propertyName;
     private String dataType;
     private String required;

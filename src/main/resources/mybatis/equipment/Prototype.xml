@@ -4,30 +4,87 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jf.jf_smartsite.gen.mapper.EqGenTableMapper">
 
-    <resultMap type="com.jf.jf_smartsite.gen.domain.Prototype" id="Pro">
+    <resultMap type="com.jf.jf_smartsite.gen.domain.Devices" id="Pro">
         <result property="manufacturerId" column="FirmId"/>
         <result property="manufacturerName" column="FirmName"/>
         <result property="model" column="Type"/>
         <result property="protocolType" column="Protocol"/>
         <result property="deviceType" column="TypeNo"/>
-        <collection property="serviceTypeCapabilitiesList"  javaType="list" ofType="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities">
-            <result property="serviceId" column="ChannelId"/>
-            <result property="serviceType" column="IotChlCode"/>
-            <result property="option" column="OPTION" />
-        </collection>
-	</resultMap>
+    </resultMap>
+    <resultMap id="ser" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilitie">
+        <result property="serviceId" column="IotCode"/>
+        <result property="serviceType" column="TypeCode"/>
+        <result property="option" column="OPTIONS"/>
+    </resultMap>
+    <resultMap id="Type" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities">
+        <result property="serviceId" column="IotCode"/>
+        <result property="serviceType" column="TypeCode"/>
+        <result property="deviceTypeId" column="DeviceId"/>
+    </resultMap>
+    <resultMap id="service" type="com.jf.jf_smartsite.gen.domain.Properties">
+        <result property="propertyName" column="IotChlCode"/>
+        <result property="dataType" column="DataType"/>
+        <result property="required" column="required"/>
+        <result property="min" column="min"/>
+        <result property="max" column="max"/>
+        <result property="step" column="step"/>
+        <result property="maxLength" column="maxLength"/>
+        <result property="method" column="method"/>
+        <result property="unit" column="Unit"/>
+        <result property="enumList" column="enumList"/>
+    </resultMap>
 
-	<select id="selectGenTable" resultMap="Pro">
+    <select id="selectGenTable" resultMap="Pro" parameterType="int">
         SELECT
-        id,
         FirmId,
         FirmName,
-        Protocol,
         Type,
-        TypeNo,
+        Protocol,
+        TypeNo
         FROM
-        conf_iotproduct
+        View_StationIotProduce
+        WHERE
+        id =#{id}
+    </select>
+    <select id="selectGenTableByid" resultMap="ser" parameterType="int">
+        SELECT
+        IotCode,
+        TypeCode,
+        OPTIONS
+        FROM
+        View_Device
+        WHERE
+        StationId =#{id}
     </select>
 
+    <select id="selectGenByid" resultMap="Type" parameterType="String">
+        SELECT
+        IotCode,
+        TypeCode,
+        DeviceId
+        FROM
+        View_Device
+        WHERE
+        TypeCode =#{serviceType}
+    </select>
+
+
+    <select id="selectGenPro" resultMap="Pro" parameterType="String">
+        SELECT
+        IotChlCode,
+        DataType,
+        required,
+        min,
+        max,
+        step,
+        maxLength,
+        method,
+        Unit,
+        enumList
+        FROM
+        conf_channeltype
+        WHERE
+        DeviceTypeId=#{deviceTypeId}
+    </select>
 
 </mapper> 

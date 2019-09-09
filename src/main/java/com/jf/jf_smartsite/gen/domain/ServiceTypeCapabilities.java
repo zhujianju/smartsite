@@ -5,7 +5,28 @@ import java.util.List;
 public class ServiceTypeCapabilities {
     private String serviceId;
     private String serviceType;
-    private String option;
+    private String commands ="123";
+    private String deviceTypeId;
+    private List<Properties> propertiesList;
+
+    @Override
+    public String toString() {
+        return "ServiceTypeCapabilities{" +
+                "serviceId='" + serviceId + '\'' +
+                ", serviceType='" + serviceType + '\'' +
+                ", commands='" + commands + '\'' +
+                ", propertiesList=" + propertiesList +
+                '}';
+    }
+
+    public String getDeviceTypeId() {
+        return deviceTypeId;
+    }
+
+    public void setDeviceTypeId(String deviceTypeId) {
+        this.deviceTypeId = deviceTypeId;
+    }
+
     public String getServiceId() {
         return serviceId;
     }
@@ -22,20 +43,19 @@ public class ServiceTypeCapabilities {
         this.serviceType = serviceType;
     }
 
-    public String getOption() {
-        return option;
+    public String getCommands() {
+        return commands;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setCommands(String commands) {
+        this.commands = commands;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceTypeCapabilities{" +
-                "serviceId='" + serviceId + '\'' +
-                ", serviceType='" + serviceType + '\'' +
-                ", option='" + option + '\'' +
-                '}';
+    public List<Properties> getPropertiesList() {
+        return propertiesList;
+    }
+
+    public void setPropertiesList(List<Properties> propertiesList) {
+        this.propertiesList = propertiesList;
     }
 }

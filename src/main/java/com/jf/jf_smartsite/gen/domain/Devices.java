@@ -2,22 +2,13 @@ package com.jf.jf_smartsite.gen.domain;
 
 import java.util.List;
 
-public class Prototype {
-    private String id;
+public class Devices {
     private String manufacturerId;
     private String manufacturerName;
     private String model;
     private String protocolType;
     private String deviceType;
-    private List<ServiceTypeCapabilities> serviceTypeCapabilitiesList;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private List<ServiceTypeCapabilitie> serviceTypeCapabilitieList;
 
     public String getManufacturerId() {
         return manufacturerId;
@@ -59,12 +50,12 @@ public class Prototype {
         this.deviceType = deviceType;
     }
 
-    public List<ServiceTypeCapabilities> getServiceTypeCapabilitiesList() {
-        return serviceTypeCapabilitiesList;
+    public List<ServiceTypeCapabilitie> getServiceTypeCapabilitiesList() {
+        return serviceTypeCapabilitieList;
     }
 
-    public void setServiceTypeCapabilitiesList(List<ServiceTypeCapabilities> serviceTypeCapabilitiesList) {
-        this.serviceTypeCapabilitiesList = serviceTypeCapabilitiesList;
+    public void setServiceTypeCapabilitiesList(List<ServiceTypeCapabilitie> serviceTypeCapabilitieList) {
+        this.serviceTypeCapabilitieList = serviceTypeCapabilitieList;
     }
 
     @Override
@@ -75,7 +66,7 @@ public class Prototype {
                 ", model='" + model + '\'' +
                 ", protocolType='" + protocolType + '\'' +
                 ", deviceType='" + deviceType + '\'' +
-                ", serviceTypeCapabilitiesList=" + serviceTypeCapabilitiesList +
+                ", serviceTypeCapabilitiesList=" + serviceTypeCapabilitieList +
                 '}';
     }
 }

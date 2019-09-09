@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * 代码生成 操作处理
- * 
+ *
  * @author ruoyi
  */
 @Controller
@@ -33,8 +33,7 @@ public class EqGenController
     @RequestMapping("/GenFile")
     public void batchGenCode(HttpServletResponse response, String tables) throws IOException
     {
-        eqGenTableService.selectGenTable();
-        //byte[] data = genTableService.generatorCode(tableName);
+        byte[] data =   eqGenTableService.selectGenTable(1);
         genCode(response, new byte[1]);
     }
 
