@@ -15,7 +15,7 @@ public interface EqGenTableService {
      *
      * @return 设备原型信息
      */
-    public byte[] selectGenTable(int id) throws Exception;
+    public byte[] selectGenTable(int id) ;
 
 
 }
