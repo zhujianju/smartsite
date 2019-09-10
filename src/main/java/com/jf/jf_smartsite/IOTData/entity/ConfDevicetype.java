@@ -30,6 +30,8 @@ public class ConfDevicetype implements Serializable
 
     /** 厂家 */
     private String company;
+    /*标识主服务字段 */
+    private String options;
 
 
 }

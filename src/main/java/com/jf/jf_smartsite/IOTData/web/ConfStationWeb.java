@@ -1,12 +1,16 @@
 package com.jf.jf_smartsite.IOTData.web;
 
+import com.fasterxml.jackson.databind.util.ClassUtil;
 import com.jf.jf_smartsite.IOTData.entity.ConfStation;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.Result;
 import com.jf.jf_smartsite.IOTData.server.ConfStationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -36,7 +40,9 @@ public class ConfStationWeb {
      * @return
      */
     @RequestMapping("/{id}")
-    public ConfStation findOne(@PathVariable("id") Integer id){
+    public ConfStation findOne(@PathVariable("id") Integer id ){
+
+
         ConfStation one = confStationService.findOne(id);
         return one;
     }
@@ -49,6 +55,9 @@ public class ConfStationWeb {
     @RequestMapping("save.m")
     public Result add(@RequestBody ConfStation confStation){
         try {
+            if(findExits(confStation.getId().intValue())){
+                return new Result(false, "操作失败,ID已经存在");
+            }
             confStationService.insert(confStation);
             return new Result(true, "增加成功");
         } catch (Exception e) {
@@ -85,6 +94,19 @@ public class ConfStationWeb {
     @RequestMapping("findIotStation.m")
     public List<ConfStation> findStationByIOTid(Integer id){
         return confStationService.findStationByIOTid(id);
+    }
+
+    /**
+     * 用于新增和修改前,查看对象是否存在
+     * @param id
+     * @return
+     */
+    private boolean findExits(Integer id){
+        ConfStation one = confStationService.findOne(id);
+        if(one != null){
+            return true;
+        }
+        return  false;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.jf.jf_smartsite.IOTData.server.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jf.jf_smartsite.IOTData.entity.ConfCommunicate;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.mapper.ConfCommunicateMapper;
@@ -27,7 +29,17 @@ public class ConfCommunicateTypeImpl implements ConfCommunicateService {
 
     @Override
     public PageResult findPage(int pageNum, int pageSize, ConfCommunicate confCommunicate) {
-        return null;
+        PageHelper.startPage(pageNum,pageSize,true);
+        Example example=new Example(ConfCommunicate.class);
+        Example.Criteria criteria = example.createCriteria();
+        //如果传入的对象不为null
+        if(confCommunicate !=null){
+            if(confCommunicate.getName() !=null && confCommunicate.getName().length()>0){
+                criteria.andLike("name","%"+confCommunicate.getName()+"%");
+            }
+        }
+        Page<ConfCommunicate> page  = (Page<ConfCommunicate>) confCommunicateMapper.selectByExample(example);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
     @Override
@@ -40,16 +52,20 @@ public class ConfCommunicateTypeImpl implements ConfCommunicateService {
 
     @Override
     public int deleteById(Integer id) {
-        return 0;
+        Example example = new Example(ConfCommunicate.class);
+        example.createCriteria().andEqualTo("id",id);
+        return  confCommunicateMapper.deleteByExample(example);
     }
 
     @Override
     public int updateByid(ConfCommunicate confCommunicate) {
-        return 0;
+        Example example = new Example(ConfCommunicate.class);
+        example.createCriteria().andEqualTo("id", confCommunicate.getId());
+        return confCommunicateMapper.updateByExampleSelective(confCommunicate,example);
     }
 
     @Override
     public int insert(ConfCommunicate confCommunicate) {
-        return 0;
+        return confCommunicateMapper.insert(confCommunicate);
     }
 }

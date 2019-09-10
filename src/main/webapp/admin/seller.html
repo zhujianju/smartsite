@@ -115,7 +115,10 @@
 					<table class="table table-bordered table-striped"  width="800px">
 						<tr>
 							<td>ID</td>
-							<td><input  class="form-control" placeholder="ID" ng-model="IotEntity.id">  </td>
+							<td>
+								<input  class="form-control" placeholder="ID" ng-model="IotEntity.id"  ng-if="IotEntity.status==1" readonly="readonly" > <!--为1则为修改,不可修改id-->
+								<input  class="form-control" placeholder="ID" ng-model="IotEntity.id"  ng-if="IotEntity.status!=1" >
+							</td>
 						</tr>
 						<tr>
 							<td>厂商Id</td>

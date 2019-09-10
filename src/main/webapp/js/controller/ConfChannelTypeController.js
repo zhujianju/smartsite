@@ -1,10 +1,10 @@
 //控制层
-app.controller('deviceController',function ($scope,$controller,deviceService) {
+app.controller('channelTypeController',function ($scope,$controller,channelTypeService) {
     $controller('baseController',{$scope:$scope});//继承通用的控制层
 
     //分页
     $scope.findPage=function(page,rows){
-        deviceService.findPage(page,rows).success(
+        channelTypeService.findPage(page,rows).success(
             function(response){
                 $scope.list=response.rows;
                 $scope.paginationConf.totalItems=response.total;//更新总记录数
@@ -14,7 +14,7 @@ app.controller('deviceController',function ($scope,$controller,deviceService) {
     $scope.searchEntity={};//定义搜索对象
     //搜索并分页
     $scope.search=function(page,rows){
-        deviceService.findPage(page,rows,$scope.searchEntity).success(
+        channelTypeService.findPage(page,rows,$scope.searchEntity).success(
             function(response){
                 $scope.list=response.rows;
                 $scope.paginationConf.totalItems=response.total;//更新总记录数
@@ -24,11 +24,10 @@ app.controller('deviceController',function ($scope,$controller,deviceService) {
 
     //查询实体
     $scope.findOne=function(id){
-        deviceService.findOne(id).success(
+        channelTypeService.findOne(id).success(
             function(response){
-                $scope.deivceEntity= response;
-
-                $scope.deivceEntity.status=1;
+                $scope.channlEntity= response;
+                $scope.channlEntity.status=1;
             }
         );
     }
@@ -36,10 +35,10 @@ app.controller('deviceController',function ($scope,$controller,deviceService) {
     //保存
     $scope.save=function(){
         var serviceObject;//服务层对象
-        if($scope.deivceEntity.status == 1){//如果有状态
-            serviceObject=deviceService.update( $scope.deivceEntity ); //修改
+        if($scope.channlEntity.status == 1){//如果有状态
+            serviceObject=channelTypeService.update( $scope.channlEntity ); //修改
         }else{
-            serviceObject=deviceService.add( $scope.deivceEntity  );//增加
+            serviceObject=channelTypeService.add( $scope.channlEntity  );//增加
         }
         serviceObject.success(
             function(response){
@@ -57,7 +56,7 @@ app.controller('deviceController',function ($scope,$controller,deviceService) {
     $scope.delete=function(id){
         if (confirm("是否确认删除")){
             //获取选中的复选框
-            deviceService.dele( id ).success(
+            channelTypeService.dele( id ).success(
                 function(response){
                     if(response.success){
                         $scope.reloadList();//刷新列表
@@ -66,65 +65,48 @@ app.controller('deviceController',function ($scope,$controller,deviceService) {
             );
         }
     }
-    //查询单个iot实体
-    $scope.findOneIot=function (id) {
-        deviceService.findOneIot(id).success(
+    //查询管道所属的设备类型
+    $scope.findDevcieTypeByid=function(id){
+        channelTypeService.findDevcieTypeByid(id).success(
             function(response){
-                $scope.IotEntity= response;
+                $scope.devcieTypeEntity= response;
             }
         );
     }
-    //根据站点id查询设备
-    $scope.findDevice=function (id) {
-        deviceService.findDevice(id).success(
-            function(response){
-                $scope.deviList= response;
-            }
-        );
-    }
+
+
     //初始化方法
     $scope.findSelect=function(){
-        findSataion();
-        findCommunicate();
         findDevcieType();
     }
-
-    /*站点下拉框设置*/
-    $scope.stationList=[];
-    //查询所有站点
-    findSataion=function () {
-        deviceService.findSataion().success(
-            function(response){
-                $scope.stationList= response;
-            }
-        );
-    }
-
-
-
     /*类型下拉框设置*/
     $scope.deviceTypes=[]
     //查询所有设备类型
     findDevcieType=function () {
-        deviceService.findDevcieType().success(
+        channelTypeService.findDevcieType().success(
             function(response){
+
                 $scope.deviceTypes=response;
             }
         );
     }
-
-    /*通讯下拉框设置*/
-    $scope.communicates=[];
-    //查询所有通道类型
-    findCommunicate=function () {
-        deviceService.findCommunicate().success(
-            function(response){
-                $scope.communicates= response;
+    /*定义类型的数据字典转换的方法*/
+    $scope.findDeviceTypeText=function (id) {
+        for (var i=0;i<$scope.deviceTypes.length;i++){
+            if($scope.deviceTypes[i].id==id){
+                return $scope.deviceTypes[i].text;
             }
-        );
+        }
     }
 
-    $scope.enableList=[{id:1,text:'启用'},{id:0,text:'禁用'}];
+    //定义通道类型下拉框数组
+    $scope.channeltypes=[{id:1,text:'遥测'},{id:2,text:'遥信'},{id:3,text:'遥调'},{id:4,text:'遥控'}];
+    //定义数据类型下拉框数组
+    $scope.datatypes=[{id:1,text:'Float'},{id:2,text:'Int'},{id:3,text:'String'}];
+    //定义是否必选下拉框数组
+    $scope.requireds=[{id:1,text:'TRUE'},{id:2,text:'FALSE'}];
 
-    $scope.checksList=[{id:0,text:'不需要对设备进行校验'},{id:1,text:'需要对设备进行校验'}];
+
+
+
 });

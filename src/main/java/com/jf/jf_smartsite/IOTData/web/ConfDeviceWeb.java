@@ -12,14 +12,12 @@ import com.jf.jf_smartsite.IOTData.server.ConfCommunicateService;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceTypeService;
 import com.jf.jf_smartsite.IOTData.server.ConfStationService;
-import com.jf.jf_smartsite.Util.SelectUtil;
+import com.jf.jf_smartsite.IOTData.Util.SelectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 设备信息查询
@@ -70,6 +68,10 @@ public class ConfDeviceWeb {
     @RequestMapping("save.m")
     public Result add(@RequestBody ConfDevice confDevice){
         try {
+
+            if(findExits(confDevice.getDeviceid().intValue())){
+                return new Result(false, "操作失败,ID已经存在");
+            }
             confDeviceService.insert(confDevice);
             return new Result(true, "增加成功");
         } catch (Exception e) {
@@ -92,6 +94,7 @@ public class ConfDeviceWeb {
     @RequestMapping("update.m")
     public Result update(@RequestBody ConfDevice confDevice){
         try {
+
             confDeviceService.updateByid(confDevice);
             return new Result(true, "修改成功");
         } catch (Exception e) {
@@ -138,5 +141,18 @@ public class ConfDeviceWeb {
             list.add(selectEntity);
         }
         return list;
+    }
+
+    /**
+     * 用于新增和修改前,查看对象是否存在
+     * @param id
+     * @return
+     */
+    private boolean findExits(Integer id){
+        ConfDevice one = confDeviceService.findOne(id);
+        if(one != null){
+            return true;
+        }
+        return  false;
     }
 }

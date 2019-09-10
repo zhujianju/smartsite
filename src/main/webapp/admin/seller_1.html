@@ -92,9 +92,9 @@ selectOne()
 					<td>{{entity.iotdevid}}</td>
 					<td>{{entity.iotnodeid}}</td>
 					<td>{{entity.iotverifycode}}</td>
-					<td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#sellerModal" ng-click="findOneIot(entity.iottypeid)" >IOT信息</button>
+					<td>
+						<button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#sellerModal" ng-click="findOneIot(entity.iottypeid)" >IOT信息</button>
 						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#deviceModal" ng-click="findDevice(entity.id)" >设备信息</button>
-
 					</td>
 
 					<td class="text-center">
@@ -171,7 +171,11 @@ selectOne()
 					<table class="table table-bordered table-striped"  width="800px">
 						<tr>
 							<td>站点ID</td>
-							<td><input  class="form-control" ng-model="stationEntity.id" placeholder="站点ID">  </td>
+							<td>
+								<input  class="form-control" placeholder="站点ID" ng-model="stationEntity.id"  ng-if="stationEntity.status==1" readonly="readonly" > <!--为1则为修改,不可修改id-->
+								<input  class="form-control" placeholder="站点ID" ng-model="stationEntity.id"  ng-if="stationEntity.status!=1" >
+
+							</td>
 						</tr>
 						<tr>
 							<td>网关产地信息</td>

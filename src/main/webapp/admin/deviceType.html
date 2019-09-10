@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>设备分类</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<!--引入需要的js-->
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	<!-- 引入自定义模块js -->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>
+	<!-- 引入自定义service的js -->
+	<script type="text/javascript" src="../js/service/ConfDeviceTypeService.js"></script>
+	<!-- 引入自定义controller的js -->
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/controller/ConfDeviceTypeController.js"></script>
+
+
+
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="jismart" ng-controller="deviceTypeController" >
+  <!-- .box-body -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">设备分类</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button" ng-click="deviceTypeEntity={}" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+							                                         
+                                </div>
+                            </div>
+                            <!--工具栏/-->
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+										  <th class="sorting_asc">类型编号</th>
+									      <th class="sorting">类型名</th>
+									      <th class="sorting">类型识别码</th>
+										  <th class="sorting">指令发送时间间隔:(单位：毫秒)</th>
+										  <th class="sorting">厂家</th>
+										  <th class="sorting">标识主服务字段</th>
+										  <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody>
+			                          <tr ng-repeat="entity in list">
+				                          <td>{{entity.id}}</td>
+										  <td>{{entity.name}}</td>
+										  <td>{{entity.typecode}}</td>
+										  <td>{{entity.intervals}}</td>
+										  <td>{{entity.company}}</td>
+										  <td>{{entity.options}}</td>
+		                                  <td class="text-center">                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.id)"  >修改</button>
+											  <button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#delete" ng-click="delete(entity.id)" >删除</button>
+											  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#deviceTypeModal" ng-click="findChannelTypeByDeviceId(entity.id)" >通道类型列表</button>
+		                                  </td>
+			                          </tr>
+			                      </tbody>
+			                  </table>
+			                  <!--数据列表/-->
+							<!--分页标签-->
+							<tm-pagination conf="paginationConf"></tm-pagination>
+                        </div>
+                        <!-- 数据表格 /-->
+                        
+                        
+                        
+                        
+                     </div>
+                    <!-- /.box-body -->
+         
+<!-- 编辑窗口 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">设备分类编辑</h3>
+		</div>
+		<div class="modal-body">		
+			<table class="table table-bordered table-striped"  width="800px">
+		      	<tr>
+		      		<td>类型编号</td>
+		      		<td>
+
+						<input  class="form-control" placeholder="类型编号" ng-model="deviceTypeEntity.id"  ng-if="deviceTypeEntity.status==1" readonly="readonly" > <!--为1则为修改,不可修改id-->
+						<input  class="form-control" placeholder="类型编号" ng-model="deviceTypeEntity.id"  ng-if="deviceTypeEntity.status!=1" >
+
+					</td>
+		      	</tr>		      	
+		      	<tr>
+		      		<td>类型名</td>
+		      		<td><input  class="form-control" placeholder="类型名" ng-model="deviceTypeEntity.name">  </td>
+		      	</tr>
+				<tr>
+					<td>类型识别码</td>
+					<td><input  class="form-control" placeholder="类型识别码" ng-model="deviceTypeEntity.typecode">  </td>
+				</tr>
+				<tr>
+					<td>指令发送时间间隔:(单位：毫秒)</td>
+					<td><input  class="form-control" placeholder="指令发送时间间隔" ng-model="deviceTypeEntity.intervals">  </td>
+				</tr>
+				<tr>
+					<td>厂家</td>
+					<td><input  class="form-control" placeholder="厂家" ng-model="deviceTypeEntity.company">  </td>
+				</tr>
+				<tr>
+					<td>标识主服务字段</td>
+					<td><!--<input  class="form-control" placeholder="标识主服务字段" ng-model="deviceTypeEntity.options">-->
+						<select select2 ng-model="deviceTypeEntity.options" class="form-control" placeholder="标识主服务字段">
+							<option value="{{ item.id }}" ng-repeat="item in optionList">{{ item.text }}</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">						
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()" >保存</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	  </div>
+	</div>
+</div>
+  <!--通道信息展示-->
+  <div class="modal fade" id="deviceTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" >
+		  <div class="modal-content">
+			  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+			  </div>
+			  <div class="modal-body">
+
+				  <ul class="nav nav-tabs">
+					  <li class="active"><a href="#home" data-toggle="tab">通道信息展示</a></li>
+				  </ul>
+				  <table class="table">
+					  <thead>
+					  <tr>
+						  <th>通道编号</th>
+						  <th>通道名</th>
+						  <th>单位</th>
+						  <th>通道识别码</th>
+					  </tr>
+					  </thead>
+					  <tbody>
+					  <tr ng-repeat="channelEntity in channelList">
+						  <td>{{channelEntity.id}}</td>
+						  <td>{{channelEntity.channelname}}  </td>
+						  <td>{{channelEntity.unit}}  </td>
+						  <td>{{channelEntity.iotchlcode}}  </td>
+					  </tr>
+					  </tbody>
+				  </table>
+			  </div>
+			  <div class="modal-footer">
+
+				  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+			  </div>
+		  </div>
+	  </div>
+  </div>
+</body>
+</html>

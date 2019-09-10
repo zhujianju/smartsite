@@ -1,10 +1,11 @@
 package com.jf.jf_smartsite.IOTData.server.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jf.jf_smartsite.IOTData.entity.ConfDevicetype;
-import com.jf.jf_smartsite.IOTData.mapper.ConfDeviceMapper;
+
 import com.jf.jf_smartsite.IOTData.mapper.ConfDeviceTypeMapper;
-import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
-import com.jf.jf_smartsite.IOTData.entity.ConfDevice;
+
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.server.ConfDeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,17 @@ public class ConfDeviceTypeServiceImpl implements ConfDeviceTypeService {
 
     @Override
     public PageResult findPage(int pageNum, int pageSize, ConfDevicetype confDevicetype) {
-        return null;
+        PageHelper.startPage(pageNum,pageSize,true);
+        Example example=new Example(ConfDevicetype.class);
+        Example.Criteria criteria = example.createCriteria();
+        //如果传入的对象不为null
+        if(confDevicetype !=null){
+            if(confDevicetype.getName() !=null && confDevicetype.getName().length()>0){
+                criteria.andLike("name","%"+confDevicetype.getName()+"%");
+            }
+        }
+        Page<ConfDevicetype> page  = (Page<ConfDevicetype>) confDeviceTypeMapper.selectByExample(example);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 
     @Override
@@ -43,17 +54,21 @@ public class ConfDeviceTypeServiceImpl implements ConfDeviceTypeService {
 
     @Override
     public int deleteById(Integer id) {
-        return 0;
+        Example example = new Example(ConfDevicetype.class);
+        example.createCriteria().andEqualTo("id",id);
+        return  confDeviceTypeMapper.deleteByExample(example);
     }
 
     @Override
     public int updateByid(ConfDevicetype confDevicetype) {
-        return 0;
+        Example example = new Example(ConfDevicetype.class);
+        example.createCriteria().andEqualTo("id", confDevicetype.getId());
+        return confDeviceTypeMapper.updateByExampleSelective(confDevicetype,example);
     }
 
     @Override
     public int insert(ConfDevicetype confDevicetype) {
-        return 0;
+        return confDeviceTypeMapper.insert(confDevicetype);
     }
 
 

@@ -1,10 +1,7 @@
-package com.jf.jf_smartsite.Util;
+package com.jf.jf_smartsite.IOTData.Util;
 
 import com.jf.jf_smartsite.IOTData.entity.comEntity.SelectEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 类型转换工具类

@@ -46,6 +46,7 @@
         WHERE
         id =#{id}
     </select>
+
     <select id="selectGenTableByid" resultMap="ser" parameterType="int">
         SELECT
         IotCode,

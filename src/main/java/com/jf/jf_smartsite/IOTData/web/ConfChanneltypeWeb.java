@@ -1,9 +1,9 @@
 package com.jf.jf_smartsite.IOTData.web;
 
+import com.jf.jf_smartsite.IOTData.entity.*;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.Result;
-import com.jf.jf_smartsite.IOTData.server.ConfIotproductService;
-import com.jf.jf_smartsite.IOTData.entity.ConfIotproduct;
+import com.jf.jf_smartsite.IOTData.server.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,53 +11,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * IOTweb层
+ * 设备信息查询
  */
 @RestController
-@RequestMapping("iotproduct")
-public class ConfIotproductWeb {
+@RequestMapping("channelType")
+public class ConfChanneltypeWeb {
     @Autowired
-    private ConfIotproductService confIotproductService;
+    private ConfChanneltypeService confChanneltypeService;
+
+
+    @RequestMapping("findBypage.m")
+    public PageResult findByPage(@RequestBody ConfChanneltype confChanneltype, int page, int rows){
+        PageResult page1 = confChanneltypeService.findPage(page, rows,confChanneltype);
+        return page1;
+    }
 
     /**
-     * 根据id查询单个IOT
+     * 根据id查询单个设备
      * @param id
      * @return
      */
     @RequestMapping("/{id}")
-    public ConfIotproduct findOne(@PathVariable("id") Integer id){
-      return  confIotproductService.findOne(id);
+    public ConfChanneltype findOne(@PathVariable("id") Integer id){
+        return  confChanneltypeService.findOne(id);
     }
 
-    @RequestMapping("findBypage.m")
-    public PageResult findByPage(int page, int rows){
-        PageResult page1 = confIotproductService.findPage(page, rows);
-        return page1;
-    }
-
-    @RequestMapping("delete.m")
-    public Result delete(Integer id){
-        try {
-            confIotproductService.deleteById(id);
-            return new Result(true, "删除成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false, "删除失败");
-        }
-    }
 
     /**
-     * 新增的方法
-     * @param confIotproduct
+     * 添加设备
+     * @param confChanneltype
      * @return
      */
     @RequestMapping("save.m")
-    public Result add(@RequestBody ConfIotproduct confIotproduct){
+    public Result add(@RequestBody ConfChanneltype confChanneltype){
         try {
-            if(findExits(confIotproduct.getId().intValue())){
+            if(findExits(confChanneltype.getId().intValue())){
                 return new Result(false, "操作失败,ID已经存在");
             }
-            confIotproductService.insert(confIotproduct);
+            confChanneltypeService.insert(confChanneltype);
             return new Result(true, "增加成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,15 +56,23 @@ public class ConfIotproductWeb {
         }
     }
 
-    /**
-     * 修改
-     * @param confIotproduct
-     * @return
-     */
-    @RequestMapping("update.m")
-    public Result update(@RequestBody ConfIotproduct confIotproduct){
+    @RequestMapping("delete.m")
+    public Result delete(Integer id){
         try {
-            confIotproductService.updateByid(confIotproduct);
+
+            confChanneltypeService.deleteById(id);
+            return new Result(true, "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "删除失败");
+        }
+    }
+
+    @RequestMapping("update.m")
+    public Result update(@RequestBody ConfChanneltype confChanneltype){
+        try {
+
+            confChanneltypeService.updateByid(confChanneltype);
             return new Result(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,10 +86,11 @@ public class ConfIotproductWeb {
      * @return
      */
     private boolean findExits(Integer id){
-        ConfIotproduct one = confIotproductService.findOne(id);
+        ConfChanneltype one = confChanneltypeService.findOne(id);
         if(one != null){
             return true;
         }
         return  false;
     }
+
 }

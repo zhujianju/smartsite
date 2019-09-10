@@ -86,11 +86,11 @@
 										  <td>{{entity.confDevice.port}}</td>
 										  <td>
 											  <p class="text-success" ng-if="entity.confDevice.enable==1">启用</p>
-											  <p  class="bg-danger" ng-if="entity.confDevice.enable==0">禁用</p>
+											  <p class="bg-danger" ng-if="entity.confDevice.enable==0">禁用</p>
 										  </td>
 		                                  <td class="text-center">                                           
 		                                 	 <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.confDevice.deviceid)" >修改</button>
-		                                 	<button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#delete" >删除</button> 
+		                                 	<button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#delete" ng-click="delete(entity.confDevice.deviceid)" >删除</button>
 			                          </tr>
 									 
 			                      </tbody>
@@ -139,7 +139,11 @@
 		      	</tr>
 			    <tr>
 		      		<td>设备编号</td>
-		      		<td><input  class="form-control" placeholder="设备编号" ng-model="deivceEntity.deviceid">  </td>
+		      		<td>
+						<input  class="form-control" placeholder="设备编号" ng-model="deivceEntity.deviceid"  ng-if="deivceEntity.status==1" readonly="readonly" > <!--为1则为修改,不可修改id-->
+						<input  class="form-control" placeholder="设备编号" ng-model="deivceEntity.deviceid"  ng-if="deivceEntity.status!=1" >
+
+					</td>
 		      	</tr>		      
 		       	 <tr>
 		      		<td>设备名称</td>
@@ -182,12 +186,16 @@
 				</tr>
 				<tr>
 					<td>设备数据校验标识</td>
-					<td><input  class="form-control" placeholder="设备数据校验标识" ng-model="deivceEntity.checks">  </td>
+					<td>
+						<select select2 ng-model="deivceEntity.checks" class="form-control" placeholder="设备数据校验标识">
+							<option value="{{ item.id }}" ng-repeat="item in checksList">{{ item.text }}</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>是否启用</td>
 					<td>
-						<select select2 ng-model="deivceEntity.enable" class="form-control" placeholder="通讯">
+						<select select2 ng-model="deivceEntity.enable" class="form-control" placeholder="是否启用">
 							<option value="{{ item.id }}" ng-repeat="item in enableList">{{ item.text }}</option>
 						</select>
 					</td>
@@ -195,15 +203,15 @@
 				</tr>
 				<tr>
 
-					<td>备注||{{IotEntity.remask}}</td>
-					<td><textarea  class="form-control" placeholder="备注" ng-model="IotEntity.remask"></textarea> </td>
+					<td>备注</td>
+					<td><textarea  class="form-control" placeholder="备注" ng-model="deivceEntity.remask"></textarea> </td>
 				</tr>
 
 			</table>
 
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 

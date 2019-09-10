@@ -86,7 +86,7 @@ public class ConfDeviceServiceImpl implements ConfDeviceService {
     @Override
     public int deleteById(Integer id) {
         Example example = new Example(ConfDevice.class);
-        example.createCriteria().andEqualTo("deviceId",id);
+        example.createCriteria().andEqualTo("deviceid",id);
         return  confDeviceMapper.deleteByExample(example);
     }
 
