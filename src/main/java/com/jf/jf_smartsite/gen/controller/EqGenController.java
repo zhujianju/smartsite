@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -20,17 +21,45 @@ import java.io.*;
 @Controller
 @RequestMapping("/equipment/gen")
 public class EqGenController {
-    private String prefix = "equip/gen";
-
     @Autowired
     EqGenTableService eqGenTableService;
 
     /**
      * 生成profile 产品原型
      */
-    @RequestMapping("/GenFile")
+    @RequestMapping( value = "/download", method = RequestMethod.GET )
     public String batchGenCode(HttpServletResponse response, int id) throws FileNotFoundException {
         eqGenTableService.selectGenTable(id);
+        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=SmartSiteGateWay.zip");
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        OutputStream os = null;
+
+        try {
+            os = response.getOutputStream();
+            bis = new BufferedInputStream(new FileInputStream(
+                    new File("/local/SmartSiteGateWay.zip")));
+            int i = bis.read(buff);
+
+            while (i != -1) {
+                os.write(buff, 0, buff.length);
+                os.flush();
+                i = bis.read(buff);
+            }
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("export file finish");
       // return genCode(response);
         return "下载成功";
     }
