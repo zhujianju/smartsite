@@ -31,11 +31,12 @@ public class EqGenController {
     @RequestMapping("/GenFile")
     public String batchGenCode(HttpServletResponse response, int id) throws FileNotFoundException {
         eqGenTableService.selectGenTable(id);
-       return genCode(response);
+      // return genCode(response);
+        return "下载成功";
     }
 
     /**
-     * 生成zip文件
+     * 下载zip文件
      */
     private String genCode(HttpServletResponse response)  {
         String downloadFilePath = "/local/SmartSiteGateWay.zip";//被下载的文件在服务器中的路径,
