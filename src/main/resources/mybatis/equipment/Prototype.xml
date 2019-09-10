@@ -65,7 +65,7 @@
         FROM
         View_Device
         WHERE
-        TypeCode =#{serviceType}
+        TypeCode =#{serviceType} and IotCode=#{iotCode}
     </select>
 
 

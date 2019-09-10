@@ -75,8 +75,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
             Path.append(service.getServiceType());
             Path.append("/profile/");
             Map<String, Object> map = new HashMap<String, Object>();
-            ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType());
-            System.out.println(serviceTypeCapabilities.getDeviceTypeId());
+            ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType(),service.getServiceId());
             List<Properties> list1=eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getDeviceTypeId()));
             serviceTypeCapabilities.setPropertiesList(list1);
             serviceTypeCapabilities.setDeviceTypeId(null);
