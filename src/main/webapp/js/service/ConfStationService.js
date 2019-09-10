@@ -31,7 +31,7 @@ app.service('stationService',function ($http) {
         return  $http.get('../device/findDevicByStationId.m?id='+id);
     }
 
-    //根据设备id查询设备列表
+    //生成profile
     this.export=function (id) {
         return  $http.get('../equipment/gen/download?id='+id);
     }
