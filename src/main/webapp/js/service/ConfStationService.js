@@ -33,6 +33,6 @@ app.service('stationService',function ($http) {
 
     //根据设备id查询设备列表
     this.export=function (id) {
-        return  $http.get('../equipment/gen/GenFile?id='+id);
+        return  $http.get('../equipment/gen/download?id='+id);
     }
 });
