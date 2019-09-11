@@ -1,3 +1,4 @@
+/*
 package com.jf.jf_smartsite.security.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +14,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Auto-generated method stub
-        //super.configure(http);
-        http
-                .formLogin().loginPage("/login").loginProcessingUrl("/login").failureUrl("/login-error").permitAll()  //表单登录，permitAll()表示这个不需要验证 登录页面，登录失败页面
+        http.authorizeRequests()
+                // 所有用户均可访问的资源
+                //.antMatchers( "/login.html","/css/**","/plugins/**","/js/**","/img/**").permitAll()
+                .antMatchers( "/**").permitAll()
+                // 任何尚未匹配的URL只需要验证用户即可访问
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .formLogin().loginPage("/login.html").successForwardUrl("/admin/index.html").failureForwardUrl("/login.html")
                 .and()
-                .csrf().disable();
+                .exceptionHandling().accessDeniedPage("/403");
+
+                  http.logout().logoutSuccessUrl("/login");
     }
 
 }
+*/
