@@ -24,8 +24,8 @@ import static com.jf.jf_smartsite.gen.util.ZipFileUtils.toZip;
 @Service
 public class EqGemTableServiceImpl implements EqGenTableService {
     private static final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
-    private static StringBuffer filePath = new StringBuffer("local/SmartSiteGateWay/");
-    private String fileName = "devicetype-capability";
+    private static final StringBuffer filePath = new StringBuffer("local/SmartSiteGateWay/profile/");
+    private static final String fileName = "devicetype-capability";
     /**
      * 查询设备原型信息
      *
@@ -57,7 +57,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("devices", devices);
         String jsonString1 = JSONArray.toJSONString(map, SerializerFeature.WriteMapNullValue);
-        boolean flag = createJsonFile(jsonString1, filePath.append("profile/"), fileName);
+        boolean flag = createJsonFile(jsonString1, filePath, fileName);
         genDevice(list);
         return flag;
     }
