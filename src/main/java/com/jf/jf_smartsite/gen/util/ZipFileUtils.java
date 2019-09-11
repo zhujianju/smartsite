@@ -149,8 +149,8 @@ public class ZipFileUtils {
 
     public static void main(String[] args) throws Exception {
         /** 测试压缩方法1 */
-        FileOutputStream fos1 = new FileOutputStream(new File("E:\\aaaDEel\\fileMail\\mytest01.zip"));
-        toZip("E:\\aaaDEel\\fileMail\\text", fos1, true);
+        FileOutputStream fos1 = new FileOutputStream(new File("E:\\mytest01.zip"));
+        toZip("E:\\text", fos1, true);
         /** 测试压缩方法2 */
 //		List<File> fileList = new ArrayList<>();
 //		fileList.add(new File("D:/Java/jdk1.7.0_45_64bit/bin/jar.exe"));

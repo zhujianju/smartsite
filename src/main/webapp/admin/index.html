@@ -5,7 +5,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>运营商后台管理系统</title>
+    <title>IOT智慧工地管理后台</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
   
@@ -20,6 +20,19 @@
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
   
     <script src="../plugins/adminLTE/js/app.min.js"></script>
+    <!--引入需要的js-->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+    <!-- 引入自定义模块js -->
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <!-- 引入自定义service的js -->
+    <script type="text/javascript" src="../js/service/UsesrService.js"></script>
+    <!-- 引入自定义controller的js -->
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/UserController.js"></script>
     
     <script type="text/javascript">   
 		 function SetIFrameHeight(){
@@ -33,7 +46,7 @@
  
 </head>
 
-<body class="hold-transition skin-green sidebar-mini" >
+<body class="hold-transition skin-green sidebar-mini" ng-app="jismart" ng-controller="userController" ng-init="getUser()">
 
     <div class="wrapper">
 
@@ -42,9 +55,9 @@
             <!-- Logo -->
             <a href="index.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>品优购</b></span>
+                <span class="logo-mini"><b>智慧工地</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>品优购-运营商后台</b></span>
+                <span class="logo-lg"><b>IOT智慧工地管理后台</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -57,12 +70,12 @@
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="label label-success">4</span>
-                            </a>
+                            </a>-->
                             <ul class="dropdown-menu">
-                                <li class="header">你有4个邮件</li>
+                                <li class="header"></li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
@@ -73,10 +86,10 @@
                                                     <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
-                                                    系统消息
-                                                    <small><i class="fa fa-clock-o"></i> 5 分钟前</small>
+
+                                                    <small><i class="fa fa-clock-o"></i> </small>
                                                 </h4>
-                                                <p>欢迎登录系统?</p>
+                                                <p></p>
                                             </a>
                                         </li>
                                         <!-- end message -->
@@ -86,10 +99,10 @@
                                                     <img src="../img/user3-128x128.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
-                                                    团队消息
-                                                    <small><i class="fa fa-clock-o"></i> 2 小时前</small>
+
+                                                    <small><i class="fa fa-clock-o"></i> </small>
                                                 </h4>
-                                                <p>你有新的任务了</p>
+                                                <p>你</p>
                                             </a>
                                         </li>
                                         <li>
@@ -135,12 +148,12 @@
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                           <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">10</span>
-                            </a>
+                            </a>-->
                             <ul class="dropdown-menu">
-                                <li class="header">你有10个新消息</li>
+                                <li class="header"></li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
@@ -176,10 +189,10 @@
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                           <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-flag-o"></i>
                                 <span class="label label-danger">9</span>
-                            </a>
+                            </a>-->
                             <ul class="dropdown-menu">
                                 <li class="header">你有9个新任务</li>
                                 <li>
@@ -256,7 +269,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="../img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">测试用户</span>
+                                <span class="hidden-xs">{{userEntity.username}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -264,18 +277,18 @@
                                     <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                       测试用户 
-                                        <small>最后登录 11:20AM</small>
+                                        {{userEntity.username}}
+                                        <small></small>
                                     </p>
                                 </li>
                                 
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                                       <!-- <a href="#" class="btn btn-default btn-flat">修改密码</a>-->
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">注销</a>
+                                        <a class="btn btn-default btn-flat" href="/login/logout">注销</a>
                                     </div>
                                 </li>
                             </ul>
@@ -297,7 +310,7 @@
                         <img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p> 测试用户</p>
+                        <p> {{userEntity.username}}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     </div>
                 </div>

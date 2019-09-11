@@ -16,14 +16,14 @@
 <body>
 	<div class="loginmanage">
 		<div class="py-container">
-			<h4 class="manage-title">品优购运营商运营管理后台</h4>
+			<h4 class="manage-title">IOT智慧工地管理后台</h4>
 			<div class="loginform">
 
 				<ul class="sui-nav nav-tabs tab-wraped">
 					<li>
-						<a href="#index" data-toggle="tab">
+						<!--<a href="#index" data-toggle="tab">
 							<h3>扫描登录</h3>
-						</a>
+						</a>-->
 					</li>
 					<li class="active">
 						<a href="#profile" data-toggle="tab">
@@ -37,21 +37,21 @@
 						<img src="../img/wx_cz.jpg" />
 					</div>
 					<div id="profile" class="tab-pane  active">
-						<form class="sui-form">
+						<form class="sui-form" name="form1" action="login/user" method="post" id="loginform">
 							<div class="input-prepend"><span class="add-on loginname"></span>
-								<input id="prependedInput" type="text" placeholder="邮箱/用户名/手机号" class="span2 input-xfat">
+								<input id="prependedInput" type="text" name="username" placeholder="用户名" class="span2 input-xfat">
 							</div>
 							<div class="input-prepend"><span class="add-on loginpwd"></span>
-								<input id="prependedInput" type="password" placeholder="请输入密码" class="span2 input-xfat">
+								<input id="prependedInput" type="password" name="password" placeholder="请输入密码" class="span2 input-xfat">
 							</div>
-							<div class="setting">
+							<!--<div class="setting">
 								 <div id="slider">
 									<div id="slider_bg"></div>
 									<span id="label">>></span> <span id="labelTip">拖动滑块验证</span>
 									</div>
-							</div>
+							</div>-->
 							<div class="logined">
-								<a class="sui-btn btn-block btn-xlarge btn-danger" href="admin/index.html" target="_blank">登&nbsp;&nbsp;录</a>
+								<a class="sui-btn btn-block btn-xlarge btn-danger" href="#" onclick="form1.submit()"   >登&nbsp;&nbsp;录</a>
 							</div>
 						</form>
 
@@ -65,9 +65,9 @@
 
 	<!--foot-->
 	<div class="py-container copyright">
-		<ul>
+	<!--	<ul>
 			<li>关于我们</li>
-			<li>联系我们</li>
+			<li>联系我们</li>f
 			<li>联系客服</li>
 			<li>商家入驻</li>
 			<li>营销中心</li>
@@ -77,7 +77,7 @@
 		</ul>
 		<div class="address">地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100</div>
 		<div class="beian">京ICP备08001421号京公网安备110108007702
-		</div>
+		</div>-->
 	</div>
 
 
@@ -88,7 +88,7 @@
 <script>
 	$(function(){
 		var slider = new SliderUnlock("#slider",{
-				successLabelTip : "欢迎访问品优购"	
+				successLabelTip : "欢迎访问品优购"
 			},function(){
 				// alert("验证成功,即将跳转至首页");
             	// window.location.href="index.html"
