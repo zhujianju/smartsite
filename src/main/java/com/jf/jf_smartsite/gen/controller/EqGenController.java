@@ -1,7 +1,6 @@
 package com.jf.jf_smartsite.gen.controller;
 
 
-
 import com.jf.jf_smartsite.gen.service.EqGenTableService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,87 +26,37 @@ public class EqGenController {
     /**
      * 生成profile 产品原型
      */
-    @RequestMapping( value = "/download", method = RequestMethod.GET )
-    public String batchGenCode(HttpServletResponse response, int id) throws FileNotFoundException {
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public String batchGenCode(HttpServletResponse response, int id) throws Exception {
         eqGenTableService.selectGenTable(id);
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; filename=SmartSiteGateWay.zip");
-        byte[] buff = new byte[1024];
-        BufferedInputStream bis = null;
-        OutputStream os = null;
-
-        try {
-            os = response.getOutputStream();
-            bis = new BufferedInputStream(new FileInputStream(
-                    new File("/local/SmartSiteGateWay.zip")));
-            int i = bis.read(buff);
-
-            while (i != -1) {
-                os.write(buff, 0, buff.length);
-                os.flush();
-                i = bis.read(buff);
-            }
-        } catch ( IOException e ) {
-            e.printStackTrace();
-        } finally {
-            if (bis != null) {
-                try {
-                    bis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        System.out.println("export file finish");
-      // return genCode(response);
+        genCode(response, FileBytes());
         return "下载成功";
     }
+
+
+    public byte[] FileBytes() throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        FileInputStream fin = new FileInputStream("\\local\\SmartSiteGateWay.zip");
+        int read;
+        byte[] bytes = new byte[1024];
+        while ((read = fin.read(bytes)) > 0) {
+            out.write(bytes, 0, read);
+        }
+        fin.close();
+        bytes = out.toByteArray(); // 这就是全部的字节数组了。
+        out.close();
+        return bytes;
+    }
+
 
     /**
      * 下载zip文件
      */
-    private String genCode(HttpServletResponse response)  {
-        String downloadFilePath = "/local/SmartSiteGateWay.zip";//被下载的文件在服务器中的路径,
-        String fileName = "SmartSiteGateWay.zip";//被下载文件的名称
-
-        File file = new File(downloadFilePath);
-        if (file.exists()) {
-            response.setContentType("application/force-download");// 设置强制下载不打开
-            response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
-            byte[] buffer = new byte[1024];
-            FileInputStream fis = null;
-            BufferedInputStream bis = null;
-            try {
-                fis = new FileInputStream(file);
-                bis = new BufferedInputStream(fis);
-                OutputStream outputStream = response.getOutputStream();
-                int i = bis.read(buffer);
-                while (i != -1) {
-                    outputStream.write(buffer, 0, i);
-                    i = bis.read(buffer);
-                }
-
-                return "下载成功";
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (bis != null) {
-                    try {
-                        bis.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return "下载失败";
+    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"SmartSiteGateWay.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+        IOUtils.write(data, response.getOutputStream());
     }
 }

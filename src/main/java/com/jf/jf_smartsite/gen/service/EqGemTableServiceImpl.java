@@ -38,7 +38,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     public void selectGenTable(int id) throws FileNotFoundException {
         deleteFile(new File("local\\"));
         genDevice(id);
-        FileOutputStream fos1 = new FileOutputStream(new File(".\\local\\SmartSiteGateWay.zip"));
+        FileOutputStream fos1 = new FileOutputStream(new File("\\local\\SmartSiteGateWay.zip"));
         ZipFileUtils.toZip("local\\SmartSiteGateWay",fos1,true);
     }
 
