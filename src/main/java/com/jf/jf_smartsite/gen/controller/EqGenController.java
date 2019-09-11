@@ -36,7 +36,7 @@ public class EqGenController {
 
     public byte[] FileBytes() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        FileInputStream fin = new FileInputStream("\\local\\SmartSiteGateWay.zip");//要转换的文件名
+        FileInputStream fin = new FileInputStream("D:/local/SmartSiteGateWay.zip");//要转换的文件名
         int read;
         byte[] bytes = new byte[1024];
         while ((read = fin.read(bytes)) > 0) {
