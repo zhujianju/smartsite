@@ -60,6 +60,8 @@ app.controller('deviceTypeController',function ($scope,$controller,deviceTypeSer
                 function(response){
                     if(response.success){
                         $scope.reloadList();//刷新列表
+                    }else{
+                        alert(response.message+"设备分类下,包含有通道类型,无法删除");
                     }
                 }
             );

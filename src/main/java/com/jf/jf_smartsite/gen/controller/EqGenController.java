@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -27,7 +28,7 @@ public class EqGenController {
      * 生成profile 产品原型
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public String batchGenCode(HttpServletResponse response, int id) throws Exception {
+    public @ResponseBody String batchGenCode(HttpServletResponse response, int id) throws Exception {
         eqGenTableService.selectGenTable(id);
         genCode(response, FileBytes());
         return "下载成功";
@@ -38,7 +39,7 @@ public class EqGenController {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         FileInputStream fin = new FileInputStream("D:/local/SmartSiteGateWay.zip");//要转换的文件名
         int read;
-        byte[] bytes = new byte[1024];
+        byte[] bytes = new byte[1024*10];
         while ((read = fin.read(bytes)) > 0) {
             out.write(bytes, 0, read);
         }
