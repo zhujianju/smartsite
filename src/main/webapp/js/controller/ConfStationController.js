@@ -60,6 +60,8 @@ app.controller('stationController',function ($scope,$controller,stationService) 
                 function(response){
                     if(response.success){
                         $scope.reloadList();//刷新列表
+                    }else{
+                        alert(response.message+"站点下,包含有设备,无法删除");
                     }
                 }
             );

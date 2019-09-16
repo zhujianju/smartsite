@@ -34,7 +34,7 @@ public class LoginController {
     @RequestMapping("logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return "redirect:/login.html";
+        return "redirect:/jf_smartsite/login.html";
     }
     @RequestMapping("getUser")
     public @ResponseBody User getUser(HttpSession session){

@@ -124,6 +124,11 @@
             </plugin>
         </plugins>
         <finalName>jf_smartsite</finalName>
+
+
+
+
+
     </build>
 
 </project>

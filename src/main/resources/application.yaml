@@ -1,7 +1,8 @@
 server:
   port: 80
   servlet:
-    context-path: "/"
+    context-path: "/jf_smartsite"
+
 
       #      org.springframework: debug
 spring:
@@ -15,6 +16,7 @@ mybatis:
   mapper-locations: classpath:mybatis/*/*.xml      #  所有的mapper映射文件
 pagehelper:
   helperDialect: mysql
+
 
 
 
