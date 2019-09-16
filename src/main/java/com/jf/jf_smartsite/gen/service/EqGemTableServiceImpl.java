@@ -24,7 +24,7 @@ import static com.jf.jf_smartsite.gen.util.ZipFileUtils.toZip;
 @Service
 public class EqGemTableServiceImpl implements EqGenTableService {
     private static final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
-    private static final StringBuffer filePath = new StringBuffer("local/SmartSiteGateWay/profile/");
+    private static final StringBuffer filePath = new StringBuffer("D:/local/SmartSiteGateWay/profile/");
     private static final String fileName = "devicetype-capability";
     /**
      * 查询设备原型信息
@@ -70,7 +70,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
      */
     public void genDevice(List<ServiceTypeCapabilitie> list) {
         for (ServiceTypeCapabilitie service : list) {
-            StringBuffer Path = new StringBuffer("local/SmartSiteGateWay/");
+            StringBuffer Path = new StringBuffer("D:/local/SmartSiteGateWay/");
             Path.append("/service/");
             Path.append(service.getServiceType());
             Path.append("/profile/");
