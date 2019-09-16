@@ -27,7 +27,7 @@ public class MyInterceptor implements HandlerInterceptor {
             return true;
         }
         //验证不通过
-         response.sendRedirect("/login.html");
+         response.sendRedirect("/jf_smartsite/login.html");
         return false;
     }
 
