@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-
 
 /**
  * 代码生成 操作处理
@@ -21,6 +21,9 @@ import java.io.*;
 @Controller
 @RequestMapping("/equipment/gen")
 public class EqGenController {
+    /*定义项目路径*/
+    private String path;
+
     @Autowired
     EqGenTableService eqGenTableService;
 
@@ -28,8 +31,10 @@ public class EqGenController {
      * 生成profile 产品原型
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public @ResponseBody String batchGenCode(HttpServletResponse response, int id) throws Exception {
-        eqGenTableService.selectGenTable(id);
+    public @ResponseBody String batchGenCode(HttpServletResponse response, HttpServletRequest request,int id) throws Exception {
+        String realPath = request.getRealPath("");
+        path=realPath+"local/";
+        eqGenTableService.selectGenTable(id,path);
         genCode(response, FileBytes());
         return "下载成功";
     }
@@ -37,7 +42,7 @@ public class EqGenController {
 
     public byte[] FileBytes() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        FileInputStream fin = new FileInputStream("D:/local/SmartSiteGateWay.zip");//要转换的文件名
+        FileInputStream fin = new FileInputStream(path+"/SmartSiteGateWay.zip");//要转换的文件名
         int read;
         byte[] bytes = new byte[1024*10];
         while ((read = fin.read(bytes)) > 0) {

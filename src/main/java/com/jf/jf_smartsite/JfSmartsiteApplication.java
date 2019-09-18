@@ -14,7 +14,7 @@ public class JfSmartsiteApplication extends SpringBootServletInitializer {
         SpringApplication.run(JfSmartsiteApplication.class, args);
     }
 
-    /*protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(JfSmartsiteApplication.class);
-    }*/
+    }
 }
