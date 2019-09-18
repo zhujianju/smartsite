@@ -21,7 +21,6 @@ public class LoginController {
 
     @RequestMapping("user")
     public String Login(User user,HttpSession session){
-        System.out.println(user);
         User one = userService.findOne(user.getUsername());
         if(one != null){
             if(one.getPassword().equals(user.getPassword())){
@@ -34,7 +33,7 @@ public class LoginController {
     @RequestMapping("logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return "redirect:/jf_smartsite/login.html";
+        return "redirect:../login.html";
     }
     @RequestMapping("getUser")
     public @ResponseBody User getUser(HttpSession session){

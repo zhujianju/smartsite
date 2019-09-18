@@ -86,7 +86,6 @@ app.controller('stationController',function ($scope,$controller,stationService) 
     }
     //调用后台导出功能  /equipment/gen/GenFile
     $scope.export=function (id) {
-        alert("导出");
         window.open("../equipment/gen/download?id="+id );
         /*stationService.export(id).success(
             function(response){

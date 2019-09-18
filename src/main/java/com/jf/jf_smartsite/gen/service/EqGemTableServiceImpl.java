@@ -23,9 +23,10 @@ import static com.jf.jf_smartsite.gen.util.ZipFileUtils.toZip;
 
 @Service
 public class EqGemTableServiceImpl implements EqGenTableService {
-    private static final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
-    private static final StringBuffer filePath = new StringBuffer("D:/local/SmartSiteGateWay/profile/");
-    private static final String fileName = "devicetype-capability";
+    private  final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
+    private   StringBuffer filePath ; //profile文件路径 路径例子D:/local/SmartSiteGateWay/profile/
+    private  String allpaths;//定义全局总路径
+    private  final String fileName = "devicetype-capability";
     /**
      * 查询设备原型信息
      *
@@ -34,12 +35,20 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     @Autowired
     private EqGenTableMapper eqGenTableMapper;
 
+    /**
+     *
+     * @param id
+     * @param path  路径例子：D:\specializedsoftware\GitData\jfSmartsite\smartsite\src\main\webapp\local\
+     * @throws FileNotFoundException
+     */
     @Override
-    public void selectGenTable(int id) throws FileNotFoundException {
-        deleteFile(new File("D:/local/"));
+    public void selectGenTable(int id,String path) throws FileNotFoundException {
+        allpaths=path;//对全局路径进行赋值
+        filePath=new StringBuffer(path+"SmartSiteGateWay/profile/");//对profile文件路径进行赋值
+        deleteFile(new File(path));
         genDevice(id);
-        FileOutputStream fos1 = new FileOutputStream(new File("D:/local/SmartSiteGateWay.zip"));
-        ZipFileUtils.toZip("D:/local/SmartSiteGateWay",fos1,true);
+        FileOutputStream fos1 = new FileOutputStream(new File(path+"/SmartSiteGateWay.zip"));
+        ZipFileUtils.toZip(path+"SmartSiteGateWay/",fos1,true);
     }
 
 
@@ -70,8 +79,8 @@ public class EqGemTableServiceImpl implements EqGenTableService {
      */
     public void genDevice(List<ServiceTypeCapabilitie> list) {
         for (ServiceTypeCapabilitie service : list) {
-            StringBuffer Path = new StringBuffer("D:/local/SmartSiteGateWay/");
-            Path.append("/service/");
+            StringBuffer Path = new StringBuffer(allpaths+"SmartSiteGateWay/");
+            Path.append("service/");
             Path.append(service.getServiceType());
             Path.append("/profile/");
             Map<String, Object> map = new HashMap<String, Object>();
