@@ -39,6 +39,7 @@ public class ZipFileUtils {
         ZipOutputStream zos = null;
         try {
             zos = new ZipOutputStream(out);
+
             File sourceFile = new File(srcDir);
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();

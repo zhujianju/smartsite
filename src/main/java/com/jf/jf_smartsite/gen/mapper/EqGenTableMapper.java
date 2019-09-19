@@ -1,10 +1,7 @@
 package com.jf.jf_smartsite.gen.mapper;
 
 
-import com.jf.jf_smartsite.gen.domain.Devices;
-import com.jf.jf_smartsite.gen.domain.Properties;
-import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilitie;
-import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities;
+import com.jf.jf_smartsite.gen.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

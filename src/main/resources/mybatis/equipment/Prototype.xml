@@ -16,10 +16,10 @@
         <result property="serviceType" column="TypeCode"/>
         <result property="option" column="OPTIONS"/>
     </resultMap>
-    <resultMap id="Type" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities">
-        <result property="serviceId" column="IotCode"/>
+    <resultMap id="type" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities">
         <result property="serviceType" column="TypeCode"/>
         <result property="deviceTypeId" column="DeviceId"/>
+        <result property="description" column="DevTypeName"/>
     </resultMap>
     <resultMap id="service" type="com.jf.jf_smartsite.gen.domain.Properties">
         <result property="propertyName" column="IotChlCode"/>
@@ -58,11 +58,11 @@
         StationId =#{id}
     </select>
 
-    <select id="selectGenByid" resultMap="Type" parameterType="String">
+    <select id="selectGenByid" resultMap="type" parameterType="String">
         SELECT
-        IotCode,
         TypeCode,
-        DeviceId
+        DeviceId,
+        DevTypeName
         FROM
         View_Device
         WHERE

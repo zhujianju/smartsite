@@ -8,7 +8,7 @@ public class Devices {
     private String model;
     private String protocolType;
     private String deviceType;
-    private List<ServiceTypeCapabilitie> serviceTypeCapabilitieList;
+    private List<ServiceTypeCapabilitie> serviceTypeCapabilities;
 
     public String getManufacturerId() {
         return manufacturerId;
@@ -50,23 +50,23 @@ public class Devices {
         this.deviceType = deviceType;
     }
 
-    public List<ServiceTypeCapabilitie> getServiceTypeCapabilitiesList() {
-        return serviceTypeCapabilitieList;
+    public List<ServiceTypeCapabilitie> getServiceTypeCapabilities() {
+        return serviceTypeCapabilities;
     }
 
-    public void setServiceTypeCapabilitiesList(List<ServiceTypeCapabilitie> serviceTypeCapabilitieList) {
-        this.serviceTypeCapabilitieList = serviceTypeCapabilitieList;
+    public void setServiceTypeCapabilities(List<ServiceTypeCapabilitie> serviceTypeCapabilities) {
+        this.serviceTypeCapabilities = serviceTypeCapabilities;
     }
 
     @Override
     public String toString() {
-        return "Prototype{" +
+        return "Devices{" +
                 "manufacturerId='" + manufacturerId + '\'' +
                 ", manufacturerName='" + manufacturerName + '\'' +
                 ", model='" + model + '\'' +
                 ", protocolType='" + protocolType + '\'' +
                 ", deviceType='" + deviceType + '\'' +
-                ", serviceTypeCapabilitiesList=" + serviceTypeCapabilitieList +
+                ", serviceTypeCapabilities=" + serviceTypeCapabilities +
                 '}';
     }
 }

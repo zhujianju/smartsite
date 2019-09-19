@@ -2,12 +2,10 @@ package com.jf.jf_smartsite.gen.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.jf.jf_smartsite.gen.domain.Devices;
-import com.jf.jf_smartsite.gen.domain.Properties;
-import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilitie;
-import com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities;
+import com.jf.jf_smartsite.gen.domain.*;
 import com.jf.jf_smartsite.gen.mapper.EqGenTableMapper;
 import com.jf.jf_smartsite.gen.util.JsonFormatTool;
+import com.jf.jf_smartsite.gen.util.ZipCompressor;
 import com.jf.jf_smartsite.gen.util.ZipFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,18 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.FileOutputStream;
-import static com.jf.jf_smartsite.gen.util.ZipFileUtils.toZip;
 
 @Service
 public class EqGemTableServiceImpl implements EqGenTableService {
-    private  final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
-    private   StringBuffer filePath ; //profile文件路径 路径例子D:/local/SmartSiteGateWay/profile/
-    private  String allpaths;//定义全局总路径
-    private  final String fileName = "devicetype-capability";
+    private final Logger log = LoggerFactory.getLogger(EqGemTableServiceImpl.class);
+    private StringBuffer filePath; //profile文件路径 路径例子D:/local/SmartSiteGateWay/profile/
+    private String allpaths;//定义全局总路径
+    private final String fileName = "devicetype-capability";
     /**
      * 查询设备原型信息
      *
@@ -36,22 +34,21 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     private EqGenTableMapper eqGenTableMapper;
 
     /**
-     *
      * @param id
-     * @param path  路径例子：D:\specializedsoftware\GitData\jfSmartsite\smartsite\src\main\webapp\local\
+     * @param path 路径例子：D:\specializedsoftware\GitData\jfSmartsite\smartsite\src\main\webapp\local\
      * @throws FileNotFoundException
      */
     @Override
-    public void selectGenTable(int id,String path) throws FileNotFoundException {
-        allpaths=path;//对全局路径进行赋值
-        filePath=new StringBuffer(path+"SmartSiteGateWay/profile/");//对profile文件路径进行赋值
+    public void selectGenTable(int id, String path) throws FileNotFoundException {
+        allpaths = path;//对全局路径进行赋值
+        filePath = new StringBuffer(path + "SmartSiteGateWay/profile/");//对profile文件路径进行赋值
         deleteFile(new File(path));
         genDevice(id);
-        FileOutputStream fos1 = new FileOutputStream(new File(path+"/SmartSiteGateWay.zip"));
-        ZipFileUtils.toZip(path+"SmartSiteGateWay/",fos1,true);
+       // FileOutputStream fos1 = new FileOutputStream(new File(path + "/SmartSiteGateWay.zip"));
+        //ZipFileUtils.toZip(path + "SmartSiteGateWay/", fos1, true);
+        ZipCompressor zc = new ZipCompressor(path +"/SmartSiteGateWay.zip");
+        zc.compress(path + "SmartSiteGateWay/profile",path + "SmartSiteGateWay/service");
     }
-
-
 
     /**
      * genDevice 生成主要profile文件
@@ -62,9 +59,11 @@ public class EqGemTableServiceImpl implements EqGenTableService {
     public boolean genDevice(int id) {
         Devices devices = eqGenTableMapper.selectGenTable(id);
         List<ServiceTypeCapabilitie> list = eqGenTableMapper.selectGenTableByid(id);
-        devices.setServiceTypeCapabilitiesList(list);
+        devices.setServiceTypeCapabilities(list);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("devices", devices);
+        List<Devices>  devicesList= new ArrayList<Devices>();
+        devicesList.add(devices);
+        map.put("devices", devicesList);
         String jsonString1 = JSONArray.toJSONString(map, SerializerFeature.WriteMapNullValue);
         boolean flag = createJsonFile(jsonString1, filePath, fileName);
         genDevice(list);
@@ -79,17 +78,57 @@ public class EqGemTableServiceImpl implements EqGenTableService {
      */
     public void genDevice(List<ServiceTypeCapabilitie> list) {
         for (ServiceTypeCapabilitie service : list) {
-            StringBuffer Path = new StringBuffer(allpaths+"SmartSiteGateWay/");
+            StringBuffer Path = new StringBuffer(allpaths + "SmartSiteGateWay/");
             Path.append("service/");
             Path.append(service.getServiceType());
             Path.append("/profile/");
             Map<String, Object> map = new HashMap<String, Object>();
 
-            ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType(),service.getServiceId());
-            List<Properties> list1=eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getDeviceTypeId()));
-            serviceTypeCapabilities.setPropertiesList(list1);
+            ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType(), service.getServiceId());
+            List<Properties> list1 = eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getDeviceTypeId()));
+            List<Propertie> list2 = new ArrayList<>();
+
+            for (Properties lis : list1) {
+                Propertie pro = new Propertie();
+                //1float  2 int  3 字符串
+                if (Integer.valueOf(lis.getDataType()) == 2) {
+                    pro.setDataType("int");
+                }
+                if (Integer.valueOf(lis.getDataType()) == 1) {
+                    pro.setDataType("float");
+                }
+                if (Integer.valueOf(lis.getDataType()) == 3) {
+                    pro.setDataType("string");
+                }
+                if (lis.getEnumList() == null) {
+
+                } else {
+                    pro.setEnumList(Integer.valueOf(lis.getEnumList()));
+                }
+
+                pro.setMax(lis.getMax());
+                pro.setMaxLength(Long.valueOf(lis.getMaxLength()));
+                pro.setMethod(lis.getMethod());
+                pro.setMin(lis.getMin());
+                pro.setPropertyName(lis.getPropertyName());
+                if (Integer.valueOf(lis.getRequired()) == 1) {
+                    pro.setRequired(true);
+                } else {
+                    pro.setRequired(false);
+                }
+                pro.setStep(Double.valueOf(lis.getStep()));
+                if (lis.getUnit() == null) {
+
+                } else {
+                    pro.setUnit(lis.getUnit());
+                }
+                list2.add(pro);
+            }
+            serviceTypeCapabilities.setProperties(list2);
             serviceTypeCapabilities.setDeviceTypeId(null);
-            map.put("services", serviceTypeCapabilities);
+            List<ServiceTypeCapabilities> serviceTypeCapabilitiesList=new ArrayList<>();
+            serviceTypeCapabilitiesList.add(serviceTypeCapabilities);
+            map.put("services", serviceTypeCapabilitiesList);
             String jsonString1 = JSONArray.toJSONString(map, SerializerFeature.WriteMapNullValue);
             createJsonFile(jsonString1, Path, "servicetype-capability");
         }

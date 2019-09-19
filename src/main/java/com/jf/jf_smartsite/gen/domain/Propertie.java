@@ -1,16 +1,17 @@
 package com.jf.jf_smartsite.gen.domain;
 
-public class Properties {
+public class Propertie {
     private String propertyName;
     private String dataType;
-    private String required;
+    private boolean required;
     private String min;
     private String max;
     private double step;
     private String method;
     private String unit;
-    private String maxLength;
-    private String enumList;
+    private long maxLength;
+    private Integer enumList;
+
     public String getPropertyName() {
         return propertyName;
     }
@@ -27,29 +28,22 @@ public class Properties {
         this.dataType = dataType;
     }
 
-    public String getRequired() {
+    public boolean isRequired() {
         return required;
     }
 
-    public void setRequired(String required) {
+    public void setRequired(boolean required) {
         this.required = required;
-    }
-
-    public String getMin() {
-        return min;
     }
 
     public void setMin(String min) {
         this.min = min;
     }
 
-    public String getMax() {
-        return max;
-    }
-
     public void setMax(String max) {
         this.max = max;
     }
+
 
     public double getStep() {
         return step;
@@ -67,6 +61,23 @@ public class Properties {
         this.method = method;
     }
 
+
+    public long getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(long maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public String getMin() {
+        return min;
+    }
+
+    public String getMax() {
+        return max;
+    }
+
     public String getUnit() {
         return unit;
     }
@@ -75,20 +86,11 @@ public class Properties {
         this.unit = unit;
     }
 
-    public String getMaxLength() {
-        return maxLength;
-    }
-
-    public void setMaxLength(String maxLength) {
-        this.maxLength = maxLength;
-    }
-
-    public String getEnumList() {
+    public Integer getEnumList() {
         return enumList;
     }
 
-    public void setEnumList(String enumList) {
+    public void setEnumList(Integer enumList) {
         this.enumList = enumList;
     }
-
 }

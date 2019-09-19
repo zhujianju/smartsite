@@ -1,21 +1,27 @@
 package com.jf.jf_smartsite.gen.domain;
 
-import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 public class ServiceTypeCapabilities {
-    private String serviceId;
     private String serviceType;
-    private String commands ="123";
+    private List<Object> commands = new ArrayList<>();
+    private String description;
+    @JSONField(serialize = false)
     private String deviceTypeId;
-    private List<Properties> propertiesList;
+    private List<Propertie> properties;
 
     @Override
     public String toString() {
         return "ServiceTypeCapabilities{" +
-                "serviceId='" + serviceId + '\'' +
-                ", serviceType='" + serviceType + '\'' +
-                ", commands='" + commands + '\'' +
-                ", propertiesList=" + propertiesList +
+                "serviceType='" + serviceType + '\'' +
+                ", commands=" + commands +
+                ", description='" + description + '\'' +
+                ", deviceTypeId='" + deviceTypeId + '\'' +
+                ", properties=" + properties +
                 '}';
     }
 
@@ -27,14 +33,6 @@ public class ServiceTypeCapabilities {
         this.deviceTypeId = deviceTypeId;
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
     public String getServiceType() {
         return serviceType;
     }
@@ -43,19 +41,27 @@ public class ServiceTypeCapabilities {
         this.serviceType = serviceType;
     }
 
-    public String getCommands() {
+    public List<Object> getCommands() {
         return commands;
     }
 
-    public void setCommands(String commands) {
+    public void setCommands(List<Object> commands) {
         this.commands = commands;
     }
 
-    public List<Properties> getPropertiesList() {
-        return propertiesList;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPropertiesList(List<Properties> propertiesList) {
-        this.propertiesList = propertiesList;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Propertie> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Propertie> properties) {
+        this.properties = properties;
     }
 }
