@@ -12,7 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-./local
+./webapp/local
 ### IntelliJ IDEA ###
 .idea
 *.iws

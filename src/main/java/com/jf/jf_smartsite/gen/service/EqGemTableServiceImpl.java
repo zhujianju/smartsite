@@ -44,8 +44,6 @@ public class EqGemTableServiceImpl implements EqGenTableService {
         filePath = new StringBuffer(path + "SmartSiteGateWay/profile/");//对profile文件路径进行赋值
         deleteFile(new File(path));
         genDevice(id);
-       // FileOutputStream fos1 = new FileOutputStream(new File(path + "/SmartSiteGateWay.zip"));
-        //ZipFileUtils.toZip(path + "SmartSiteGateWay/", fos1, true);
         ZipCompressor zc = new ZipCompressor(path +"/SmartSiteGateWay.zip");
         zc.compress(path + "SmartSiteGateWay/profile",path + "SmartSiteGateWay/service");
     }
