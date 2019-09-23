@@ -6,7 +6,6 @@ import com.jf.jf_smartsite.gen.domain.*;
 import com.jf.jf_smartsite.gen.mapper.EqGenTableMapper;
 import com.jf.jf_smartsite.gen.util.JsonFormatTool;
 import com.jf.jf_smartsite.gen.util.ZipCompressor;
-import com.jf.jf_smartsite.gen.util.ZipFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +87,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
 
             for (Properties lis : list1) {
                 Propertie pro = new Propertie();
-                //1float  2 int  3 字符串
+                //1float  2 int  3 字符串 int|long|decimal|string|DateTime|jsonObject
                 if (Integer.valueOf(lis.getDataType()) == 2) {
                     pro.setDataType("int");
                 }
