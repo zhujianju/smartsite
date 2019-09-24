@@ -24,8 +24,9 @@ public class MyInterceptor implements HandlerInterceptor {
             return true;
         }
         //验证不通过
-       response.sendRedirect("../login.html");
-        return false;
+      // response.sendRedirect("../login.html");
+        //return false;
+        return true;
     }
 
     @Override

@@ -41,4 +41,9 @@ public class ConfDeviceTest {
         List<ConfDeviceDTypeDCom> deviceByStationId = confDeviceService.findDeviceByStationId(1);
         System.out.println(deviceByStationId);
     }
+
+    @Test
+    public void selectFromId(){
+        confDeviceService.selectFromId(2);
+    }
 }

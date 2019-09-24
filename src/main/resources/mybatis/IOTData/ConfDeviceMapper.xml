@@ -2,6 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jf.jf_smartsite.IOTData.entity.ConfDevice">
-
+<mapper namespace="com.jf.jf_smartsite.IOTData.mapper.ConfDeviceMapper">
+    <select id="selectFromId" resultType="com.jf.jf_smartsite.IOTData.entity.ConfDevice" parameterType="Integer">
+        select NAME,IotCode FROM conf_device WHERE DeviceId=#{DeviceId}
+    </select>
 </mapper>

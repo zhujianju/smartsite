@@ -129,4 +129,10 @@ public class ConfDeviceServiceImpl implements ConfDeviceService {
         }
         return totalList;
     }
+
+
+    public void selectFromId(Integer deviceId){
+        ConfDevice confDevice = confDeviceMapper.selectFromId(deviceId);
+        System.out.println(confDevice);
+    }
 }

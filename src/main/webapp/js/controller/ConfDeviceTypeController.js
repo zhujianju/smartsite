@@ -78,6 +78,6 @@ app.controller('deviceTypeController',function ($scope,$controller,deviceTypeSer
     }
 
     //定义标识主服务字段下拉框数组
-    $scope.optionList=[{id:'Master',text:'Master(主服务)'},{id:'Mandatory',text:'Mandatory(必选服务)'},{id:'Optional',text:'Optional(可选服务)'}];
+    $scope.optionList=[{id:'Master',text:'Master(主服务)'},{id:'Mandatory',text:'Mandatory(必选服务)'},{id:'Options',text:'Options(可选服务)'}];
 
 });
