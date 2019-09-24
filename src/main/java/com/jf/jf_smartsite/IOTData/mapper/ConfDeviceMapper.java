@@ -9,5 +9,10 @@ import tk.mybatis.mapper.common.Mapper;
  */
 public interface ConfDeviceMapper extends Mapper<ConfDevice> {
 
-  /*  public ConfDeviceDTypeDCom*/
+    /**
+     * 测试后mapper文件sql是否能调用
+     * @param deviceId
+     * @return
+     */
+    ConfDevice selectFromId(Integer deviceId);
 }

@@ -16,5 +16,10 @@ public interface ConfDeviceService extends ComService<ConfDevice>{
      */
     public List<ConfDeviceDTypeDCom> findDeviceByStationId(Integer id);
 
+    /**
+     * 测试类方法
+     * @param deviceId
+     */
+    public void selectFromId(Integer deviceId);
 
 }
