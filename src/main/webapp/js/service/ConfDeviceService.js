@@ -27,15 +27,15 @@ app.service('deviceService',function ($http) {
         return $http.get('../device/findIotStation.m?id='+id);
     }
     //为select2提供所有的站点
-    this.findSataion=function (id) {
+    this.findSataion=function () {
         return $http.get('../device/findSataion.m');
     }
     //为select2提供所有的设备类型
-    this.findDevcieType=function (id) {
+    this.findDevcieType=function () {
         return $http.get('../device/findDevcieType.m');
     }
     //为select2提供所有的通讯
-    this.findCommunicate=function (id) {
+    this.findCommunicate=function () {
         return $http.get('../device/findCommunicate.m');
     }
 });
