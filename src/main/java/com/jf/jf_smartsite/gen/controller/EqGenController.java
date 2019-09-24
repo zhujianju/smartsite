@@ -16,7 +16,7 @@ import java.io.*;
 /**
  * 代码生成 操作处理
  *
- * @author ruoyi
+ * @author 胡正
  */
 @Controller
 @RequestMapping("/equipment/gen")

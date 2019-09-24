@@ -19,6 +19,6 @@ public interface EqGenTableMapper {
 
     ServiceTypeCapabilities selectGenByid(String serviceType,String iotCode);
 
-    List<Properties> selectGenPro(int deviceTypeId);
+    List<Properties> selectGenPro(int typeid);
 
 }

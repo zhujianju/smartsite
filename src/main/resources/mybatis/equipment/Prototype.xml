@@ -7,9 +7,9 @@
     <resultMap type="com.jf.jf_smartsite.gen.domain.Devices" id="Pro">
         <result property="manufacturerId" column="FirmId"/>
         <result property="manufacturerName" column="FirmName"/>
-        <result property="model" column="Type"/>
+        <result property="model" column="TypeNo"/>
         <result property="protocolType" column="Protocol"/>
-        <result property="deviceType" column="TypeNo"/>
+        <result property="deviceType" column="Type"/>
     </resultMap>
     <resultMap id="ser" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilitie">
         <result property="serviceId" column="IotCode"/>
@@ -17,8 +17,8 @@
         <result property="option" column="OPTIONS"/>
     </resultMap>
     <resultMap id="type" type="com.jf.jf_smartsite.gen.domain.ServiceTypeCapabilities">
+        <result property="typeId" column="TypeId"/>
         <result property="serviceType" column="TypeCode"/>
-        <result property="deviceTypeId" column="DeviceId"/>
         <result property="description" column="DevTypeName"/>
     </resultMap>
     <resultMap id="service" type="com.jf.jf_smartsite.gen.domain.Properties">
@@ -61,7 +61,7 @@
     <select id="selectGenByid" resultMap="type" parameterType="String">
         SELECT
         TypeCode,
-        DeviceId,
+        TypeId,
         DevTypeName
         FROM
         View_Device
@@ -85,7 +85,7 @@
         FROM
         conf_channeltype
         WHERE
-        DeviceTypeId=#{deviceTypeId}
+        DeviceTypeId=#{typeid}
     </select>
 
 </mapper> 

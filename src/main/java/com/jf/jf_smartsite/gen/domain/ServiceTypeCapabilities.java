@@ -11,7 +11,7 @@ public class ServiceTypeCapabilities {
     private List<Object> commands = new ArrayList<>();
     private String description;
     @JSONField(serialize = false)
-    private String deviceTypeId;
+    private String typeId;
     private List<Propertie> properties;
 
     @Override
@@ -20,21 +20,21 @@ public class ServiceTypeCapabilities {
                 "serviceType='" + serviceType + '\'' +
                 ", commands=" + commands +
                 ", description='" + description + '\'' +
-                ", deviceTypeId='" + deviceTypeId + '\'' +
+                ", typeId='" + typeId + '\'' +
                 ", properties=" + properties +
                 '}';
     }
 
-    public String getDeviceTypeId() {
-        return deviceTypeId;
-    }
-
-    public void setDeviceTypeId(String deviceTypeId) {
-        this.deviceTypeId = deviceTypeId;
-    }
-
     public String getServiceType() {
         return serviceType;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
     public void setServiceType(String serviceType) {

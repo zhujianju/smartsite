@@ -82,7 +82,7 @@ public class EqGemTableServiceImpl implements EqGenTableService {
             Map<String, Object> map = new HashMap<String, Object>();
 
             ServiceTypeCapabilities serviceTypeCapabilities = eqGenTableMapper.selectGenByid(service.getServiceType(), service.getServiceId());
-            List<Properties> list1 = eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getDeviceTypeId()));
+            List<Properties> list1 = eqGenTableMapper.selectGenPro(Integer.valueOf(serviceTypeCapabilities.getTypeId()));
             List<Propertie> list2 = new ArrayList<>();
 
             for (Properties lis : list1) {
@@ -122,7 +122,6 @@ public class EqGemTableServiceImpl implements EqGenTableService {
                 list2.add(pro);
             }
             serviceTypeCapabilities.setProperties(list2);
-            serviceTypeCapabilities.setDeviceTypeId(null);
             List<ServiceTypeCapabilities> serviceTypeCapabilitiesList=new ArrayList<>();
             serviceTypeCapabilitiesList.add(serviceTypeCapabilities);
             map.put("services", serviceTypeCapabilitiesList);
