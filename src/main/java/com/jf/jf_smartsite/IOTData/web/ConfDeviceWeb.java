@@ -1,17 +1,11 @@
 package com.jf.jf_smartsite.IOTData.web;
 
-import com.jf.jf_smartsite.IOTData.entity.ConfCommunicate;
-import com.jf.jf_smartsite.IOTData.entity.ConfDevice;
-import com.jf.jf_smartsite.IOTData.entity.ConfDevicetype;
-import com.jf.jf_smartsite.IOTData.entity.ConfStation;
+import com.jf.jf_smartsite.IOTData.entity.*;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.ConfDeviceDTypeDCom;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.PageResult;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.Result;
 import com.jf.jf_smartsite.IOTData.entity.comEntity.SelectEntity;
-import com.jf.jf_smartsite.IOTData.server.ConfCommunicateService;
-import com.jf.jf_smartsite.IOTData.server.ConfDeviceService;
-import com.jf.jf_smartsite.IOTData.server.ConfDeviceTypeService;
-import com.jf.jf_smartsite.IOTData.server.ConfStationService;
+import com.jf.jf_smartsite.IOTData.server.*;
 import com.jf.jf_smartsite.IOTData.Util.SelectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +34,8 @@ public class ConfDeviceWeb {
     private ConfDeviceTypeService confDeviceTypeService;
     @Autowired
     private ConfCommunicateService confCommunicateService;
-
+    @Autowired
+    private ConfChanneltypeService confChanneltypeService;
     @RequestMapping("findBypage.m")
     public PageResult findByPage(@RequestBody ConfDevice confDevice, int page, int rows){
         PageResult page1 = confDeviceService.findPage(page, rows,confDevice);
@@ -109,7 +104,7 @@ public class ConfDeviceWeb {
     }
 
     /**
-     * 用于设备新增的,查询所有的站点
+     * 用于设备新增的,查询所有的站点,用于select2和数据字典
      */
     @RequestMapping("findSataion.m")
     public List<SelectEntity> findSataion(){
@@ -122,7 +117,7 @@ public class ConfDeviceWeb {
         return list;
     }
     /**
-     * 用于设备新增的,查询所有的设备类型
+     * 用于设备新增的,查询所有的设备类型,用于select2和数据字典
      */
     @RequestMapping("findDevcieType.m")
     public List<SelectEntity> findDevcieType(){
@@ -135,7 +130,7 @@ public class ConfDeviceWeb {
         return list;
     }
     /**
-     * 用于设备新增的,查询所有的通讯
+     * 用于设备新增的,查询所有的通讯,用于select2和数据字典
      */
     @RequestMapping("findCommunicate.m")
     public List<SelectEntity> findCommunicate(){
@@ -147,6 +142,34 @@ public class ConfDeviceWeb {
         }
         return list;
     }
+    /**
+     * 查询所有设备，用于select2和数据字典
+     */
+    @RequestMapping("findDevice.m")
+    public List<SelectEntity> findAllDevice(){
+        List<ConfDevice> allConfDevices = confDeviceService.findAll();
+        List<SelectEntity> list =new ArrayList<>();//用于接受结果并返回
+        for (ConfDevice confDevice :allConfDevices) {
+            SelectEntity selectEntity = selectUtil.exchangToSelect(confDevice.getDeviceid().longValue(), confDevice.getName());
+            list.add(selectEntity);
+        }
+        return list;
+    }
+    /**confChanneltype
+     * 查询所有通道，用于select2和数据字典
+     */
+    @RequestMapping("findAllChann.m")
+    public List<SelectEntity> findAllChann(){
+        List<ConfChanneltype> all = confChanneltypeService.findAll();
+        List<SelectEntity> list =new ArrayList<>();//用于接受结果并返回
+        for (ConfChanneltype confChanneltype :all) {
+            SelectEntity selectEntity = selectUtil.exchangToSelect(confChanneltype.getId().longValue(), confChanneltype.getChannelname());
+            list.add(selectEntity);
+        }
+        return list;
+    }
+
+
 
     /**
      * 用于新增和修改前,查看对象是否存在

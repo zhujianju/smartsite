@@ -4,13 +4,14 @@ import lombok.Data;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 /**
  * 报警数据实体类
  */
 @Data
 @Table(name = "run_record_alarmlog")
-public class runRecordAlarmlog {
+public class RunRecordAlarmlog implements Serializable {
     private Integer id;
     /**
      *站点编号
@@ -18,27 +19,30 @@ public class runRecordAlarmlog {
     private Integer stationid;
     /**
      * 站点名称
-     */
+
     @Transient
     private String stname;
+     */
     /**
      *设备编号
      */
     private Integer deviceid;
     /**
      * 设备名称
-     */
+
     @Transient
     private String devname;
+     */
     /**
      *设备类型编号
      */
     private Integer devicetypeid;
     /**
      *设备类型名称
-     */
+
     @Transient
     private String devtypname;
+     */
     /**
      *通道编号
      */

@@ -58,4 +58,6 @@ public class ConfChanneltype implements Serializable
     private String enumlist;
     /*指示访问模式 R:可读；W:可写；E 可订阅 取值范围：R、RW、RE、RWE 、null (忽略) */
     private String method;
+    /**实际值*/
+    private String alarm;
 }
