@@ -56,7 +56,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="input-group" style="width:1000px;" >
+                                <div style="width: 135px">
+                                    <select select2 ng-model="searchEntity.devicetypeid" class="form-control" ng-change="reloadList()" placeholder="设备类型">
+                                        <option value="{{ item.id }}" ng-repeat="item in deviceTypes">{{ item.text }}</option>
+                                    </select>
+                                </div>
 
+                              <!--   <div style=""  class="input-group"><button class="btn btn-default" ng-click="reloadList()" >查询</button></div>-->
+                            </div>
 			                  <!--数据列表-->
 			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			                      <thead>

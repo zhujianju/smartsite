@@ -39,6 +39,11 @@ public class ConfChanneltypeServiceImpl implements ConfChanneltypeService {
             if(confChanneltype.getChannelname() !=null && confChanneltype.getChannelname().length()>0){
                 criteria.andLike("channelname","%"+confChanneltype.getChannelname()+"%");
             }
+            //DeviceTypeId设备类型
+            if(confChanneltype.getDevicetypeid() != null) {
+                criteria.andEqualTo("devicetypeid",confChanneltype.getDevicetypeid());
+            }
+
         }
         Page<ConfChanneltype> page  = (Page<ConfChanneltype>) confChanneltypeMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
