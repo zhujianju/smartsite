@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jf.jf_smartsite.tmpvalue.mapper.TmpValueDao">
+
+    <resultMap type="com.jf.jf_smartsite.tmpvalue.domain.Tmpvalue" id="tmp">
+        <result property="id" column="id"/>
+        <result property="deviceName" column="name"/>
+        <result property="deviceType" column="name"/>
+        <result property="deviceId" column="Protocol"/>
+        <result property="channelName" column="channelName"/>
+        <result property="value" column="value"/>
+        <result property="alarm" column="alarm"/>
+        <result property="clock" column="clock"/>
+    </resultMap>
+
+
+    <select id="selectListTmpValue" resultMap="tmp" parameterType="int">
+        SELECT
+        id,
+        ChannelName,
+        `name`,
+        deviceId,
+        channelName,
+        `VALUE`,
+        alarm,
+        clock
+        FROM
+        View_Tmpvalue
+
+    </select>
+
+</mapper> 
