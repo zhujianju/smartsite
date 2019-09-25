@@ -21,8 +21,8 @@ public class EnvironmentController {
 
     @RequestMapping("/selectList")
     @ResponseBody
-        public PageResult selectListEnvironment(int page, int limit, Tmpvalue tmpvalue ){
-        PageResult page1= tmpValueService.findPage(page,limit,tmpvalue);
+        public PageResult selectListEnvironment(int page, int rows, Tmpvalue tmpvalue ){
+        PageResult page1= tmpValueService.findPage(page,rows,tmpvalue);
         return page1;
     }
 }
